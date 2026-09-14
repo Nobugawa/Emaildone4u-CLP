@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Setup Intake — [YOUR BUSINESS NAME]</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --blue: #1d4ed8;
+    --sky: #3b82f6;
+    --ice: #e0effe;
+    --amber: #f59e0b;
+    --white: #ffffff;
+    --off: #f7f9fc;
+    --gray: #64748b;
+    --light: #cbd5e1;
+    --text: #0f172a;
+    --success: #059669;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    min-height: 100vh;
+    color: var(--text);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(29,78,216,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(59,130,246,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .page-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(59,130,246,0.2);
+    color: #93c5fd;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(59,130,246,0.3);
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: #93c5fd;
+  }
+
+  .header p {
+    color: #94a3b8;
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Trust strip */
+  .trust-strip {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin: 28px 0 36px;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .trust-item .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--amber);
+    flex-shrink: 0;
+  }
+
+  /* Card */
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, #1a2e4a 0%, #1d4ed8 100%);
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .card-header-text h2 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--white);
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .card-header-text p {
+    color: #93c5fd;
+    font-size: 13px;
+  }
+
+  .lock-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 10px 16px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .lock-badge .icon { font-size: 20px; display: block; margin-bottom: 4px; }
+  .lock-badge span { font-size: 10px; color: #bfdbfe; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
+
+  .card-body { padding: 36px; }
+
+  /* Sections */
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .section-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-label h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin-bottom: 36px;
+  }
+
+  /* Fields */
+  .field { margin-bottom: 20px; }
+
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 7px;
+  }
+
+  .field label .req { color: var(--blue); margin-left: 2px; }
+  .field label .hint { font-weight: 400; color: var(--gray); margin-left: 6px; font-size: 12px; }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--off);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--sky);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+    background: var(--white);
+  }
+
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* Email preview */
+  .email-preview {
+    background: var(--ice);
+    border: 1.5px solid #bfdbfe;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--blue);
+    font-weight: 600;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .email-preview.empty { color: #94a3b8; font-weight: 400; }
+
+  /* Tier selection */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .tier-option { position: relative; }
+
+  .tier-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0; height: 0;
+  }
+
+  .tier-card {
+    display: block;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--off);
+    user-select: none;
+  }
+
+  .tier-card:hover { border-color: var(--sky); background: #f0f7ff; }
+
+  .tier-option input:checked + .tier-card {
+    border-color: var(--blue);
+    background: var(--ice);
+    box-shadow: 0 0 0 3px rgba(29,78,216,0.12);
+  }
+
+  .tier-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray); margin-bottom: 6px; }
+  .tier-price { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+  .tier-time { font-size: 11px; color: var(--gray); }
+
+  .tier-option input:checked + .tier-card .tier-name { color: var(--blue); }
+  .tier-option input:checked + .tier-card .tier-price { color: var(--navy); }
+
+  /* Registrar pills */
+  .registrar-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .registrar-option { position: relative; }
+  .registrar-option input { position: absolute; opacity: 0; width: 0; height: 0; }
+
+  .registrar-pill {
+    display: block;
+    padding: 8px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--off);
+    user-select: none;
+  }
+
+  .registrar-pill:hover { border-color: var(--sky); color: var(--blue); background: #f0f7ff; }
+  .registrar-option input:checked + .registrar-pill { border-color: var(--blue); color: var(--blue); background: var(--ice); font-weight: 600; }
+
+  /* Info box */
+  .info-box {
+    background: #fffbeb;
+    border: 1.5px solid #fde68a;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #92400e;
+    line-height: 1.55;
+    margin-top: 10px;
+    display: none;
+  }
+  .info-box.show { display: block; }
+  .info-box strong { display: block; margin-bottom: 4px; }
+
+  /* Security note */
+  .security-note {
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .security-note .icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+  .security-note p { font-size: 13px; color: #166534; line-height: 1.55; }
+  .security-note p strong { font-weight: 700; }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #1a2e4a 0%, #1d4ed8 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .submit-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .submit-note {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  /* Success */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 36px;
+  }
+
+  .success-screen .check { font-size: 56px; margin-bottom: 20px; }
+
+  .success-screen h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .success-screen p { color: var(--gray); font-size: 15px; line-height: 1.65; max-width: 380px; margin: 0 auto; }
+
+  .next-steps {
+    background: var(--off);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 28px;
+    text-align: left;
+  }
+
+  .next-steps h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .next-step-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.5;
+  }
+
+  .step-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--navy); color: white; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 520px) {
+    .card-body { padding: 24px 20px; }
+    .card-header { padding: 20px 24px; }
+    .tier-grid { grid-template-columns: 1fr; }
+    .field-row { grid-template-columns: 1fr; }
+    .lock-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="header">
+    <div class="badge">Professional Email Setup</div>
+    <h1>Get started with your<br><em>business email</em></h1>
+    <p>Fill out this quick form and we handle everything. No passwords shared — ever.</p>
+  </div>
+
+  <div class="trust-strip">
+    <div class="trust-item"><div class="dot"></div>No password sharing</div>
+    <div class="trust-item"><div class="dot"></div>Same-day slots available</div>
+    <div class="trust-item"><div class="dot"></div>30-day support included</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-text">
+        <h2>Client Intake Form</h2>
+        <p>Takes about 3 minutes to complete</p>
+      </div>
+      <div class="lock-badge">
+        <span class="icon">🔒</span>
+        <span>Secure<br>Form</span>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <form id="intakeForm">
+
+        <!-- Section 1: About You -->
+        <div class="section">
+          <div class="section-label">
+            <div class="section-num">1</div>
+            <h3>About Your Business</h3>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>Your Name <span class="req">*</span></label>
+              <input type="text" id="ownerName" placeholder="Jane Smith" required>
+            </div>
+            <div class="field">
+              <label>Business Name <span class="req">*</span></label>
+              <input type="text" id="bizName" placeholder="Acme Plumbing LLC" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>Phone <span class="req">*</span></label>
+              <input type="tel" id="phone" placeholder="(555) 000-0000" required>
+            </div>
+            <div class="field">
+              <label>Current Email <span class="req">*</span> <span class="hint">we'll reply here</span></label>
+              <input type="email" id="currentEmail" placeholder="jane@gmail.com" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 2: Your New Email -->
+        <div class="section">
+          <div class="section-label">
+            <div class="section-num">2</div>
+            <h3>Your New Email Address</h3>
+          </div>
+
+          <div class="field">
+            <label>What domain do you want? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span></label>
+            <input type="text" id="domain" placeholder="yourbusiness.com" required oninput="updatePreview()">
+          </div>
+
+          <div class="field">
+            <label>What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, info, hello</span></label>
+            <input type="text" id="username" placeholder="jane" required oninput="updatePreview()">
+          </div>
+
+          <div class="field">
+            <label>Your new email will look like:</label>
+            <div class="email-preview empty" id="emailPreview">Fill in the fields above to see your new address</div>
+          </div>
+
+          <div class="field">
+            <label>Additional email addresses needed? <span class="hint">optional — e.g. info@, billing@</span></label>
+            <input type="text" id="extraEmails" placeholder="info, billing, support">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 3: Domain -->
+        <div class="section">
+          <div class="section-label">
+            <div class="section-num">3</div>
+            <h3>Domain & Registrar</h3>
+          </div>
+
+          <div class="field">
+            <label>Do you already own this domain? <span class="req">*</span></label>
+            <select id="domainStatus" onchange="toggleRegistrar()" required>
+              <option value="">— select one —</option>
+              <option value="yes">Yes, I already own it</option>
+              <option value="no">No, I need to purchase one</option>
+              <option value="unsure">Not sure</option>
+            </select>
+          </div>
+
+          <div id="registrarSection" style="display:none;">
+            <div class="field">
+              <label>Where is your domain registered?</label>
+              <div class="registrar-grid">
+                <div class="registrar-option"><input type="radio" name="registrar" id="r1" value="GoDaddy"><label class="registrar-pill" for="r1">GoDaddy</label></div>
+                <div class="registrar-option"><input type="radio" name="registrar" id="r2" value="Namecheap"><label class="registrar-pill" for="r2">Namecheap</label></div>
+                <div class="registrar-option"><input type="radio" name="registrar" id="r3" value="Cloudflare"><label class="registrar-pill" for="r3">Cloudflare</label></div>
+                <div class="registrar-option"><input type="radio" name="registrar" id="r4" value="Google Domains"><label class="registrar-pill" for="r4">Google Domains</label></div>
+                <div class="registrar-option"><input type="radio" name="registrar" id="r5" value="Squarespace"><label class="registrar-pill" for="r5">Squarespace</label></div>
+                <div class="registrar-option"><input type="radio" name="registrar" id="r6" value="Other"><label class="registrar-pill" for="r6">Other</label></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box" id="domainInfo"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 4: Tier -->
+        <div class="section">
+          <div class="section-label">
+            <div class="section-num">4</div>
+            <h3>How Quickly Do You Need This?</h3>
+          </div>
+
+          <div class="tier-grid">
+            <div class="tier-option">
+              <input type="radio" name="tier" id="t1" value="Standard $150" required>
+              <label class="tier-card" for="t1">
+                <div class="tier-name">Standard</div>
+                <div class="tier-price">$150</div>
+                <div class="tier-time">Ready in 2 days</div>
+              </label>
+            </div>
+            <div class="tier-option">
+              <input type="radio" name="tier" id="t2" value="Priority $200">
+              <label class="tier-card" for="t2">
+                <div class="tier-name">Priority</div>
+                <div class="tier-price">$200</div>
+                <div class="tier-time">Ready in 24 hrs</div>
+              </label>
+            </div>
+            <div class="tier-option">
+              <input type="radio" name="tier" id="t3" value="Rush $300">
+              <label class="tier-card" for="t3">
+                <div class="tier-name">Rush</div>
+                <div class="tier-price">$300</div>
+                <div class="tier-time">Ready today</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 5: Notes -->
+        <div class="section" style="margin-bottom:28px;">
+          <div class="section-label">
+            <div class="section-num">5</div>
+            <h3>Anything Else?</h3>
+          </div>
+          <div class="field">
+            <label>Special requests or questions <span class="hint">optional</span></label>
+            <textarea id="notes" placeholder="e.g. I need to migrate emails from my old Gmail account, or I have a specific display name preference..."></textarea>
+          </div>
+        </div>
+
+        <!-- Security note -->
+        <div class="security-note">
+          <div class="icon">🛡️</div>
+          <p><strong>You will never be asked for your password.</strong> We use secure delegated access — you grant us temporary setup permissions, we do the work, then remove our access. Your credentials stay yours.</p>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit & Get Started →</button>
+        <p class="submit-note">We'll follow up within 1 hour with your secure access invitation links.</p>
+
+      </form>
+
+      <!-- Success screen -->
+      <div class="success-screen" id="successScreen">
+        <div class="check">✅</div>
+        <h2>You're all set!</h2>
+        <p>We received your intake form and will send your secure setup invitation to <strong id="confirmEmail"></strong> within 1 hour.</p>
+        <div class="next-steps">
+          <h4>What happens next</h4>
+          <div class="next-step-item"><div class="step-dot">1</div><div>We send you two secure invitation links — one for your domain, one for Google Workspace. No passwords needed.</div></div>
+          <div class="next-step-item"><div class="step-dot">2</div><div>You click accept on each link. Takes about 2 minutes.</div></div>
+          <div class="next-step-item"><div class="step-dot">3</div><div>We handle the entire setup — DNS, email configuration, spam protection — everything.</div></div>
+          <div class="next-step-item"><div class="step-dot">4</div><div>You receive a handoff email with your new login, phone setup instructions, and a test confirmation.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>[YOUR BUSINESS NAME] · [Your Phone] · [your@email.com]</p>
+    <p style="margin-top:6px;">Google Workspace subscription (~$7/mo) billed directly to you by Google — not included in setup fee.</p>
+  </div>
+
+</div>
+
+<script>
+  function updatePreview() {
+    const user = document.getElementById('username').value.trim().toLowerCase().replace(/\s+/g, '');
+    const domain = document.getElementById('domain').value.trim().toLowerCase().replace(/\s+/g, '');
+    const preview = document.getElementById('emailPreview');
+    if (user && domain) {
+      preview.textContent = user + '@' + domain;
+      preview.classList.remove('empty');
+    } else if (user || domain) {
+      preview.textContent = (user || '___') + '@' + (domain || 'yourdomain.com');
+      preview.classList.remove('empty');
+    } else {
+      preview.textContent = 'Fill in the fields above to see your new address';
+      preview.classList.add('empty');
+    }
+  }
+
+  function toggleRegistrar() {
+    const val = document.getElementById('domainStatus').value;
+    const reg = document.getElementById('registrarSection');
+    const info = document.getElementById('domainInfo');
+
+    if (val === 'yes') {
+      reg.style.display = 'block';
+      info.className = 'info-box';
+      info.innerHTML = '';
+    } else if (val === 'no') {
+      reg.style.display = 'none';
+      info.className = 'info-box show';
+      info.innerHTML = '<strong>No problem!</strong> We\'ll purchase and register the domain for you as part of the setup. Domain registration costs typically $12–18/year and will be billed to your card directly.';
+    } else if (val === 'unsure') {
+      reg.style.display = 'none';
+      info.className = 'info-box show';
+      info.innerHTML = '<strong>No worries.</strong> We\'ll check for you when we begin setup and let you know what we find before proceeding.';
+    } else {
+      reg.style.display = 'none';
+      info.className = 'info-box';
+    }
+  }
+
+  document.getElementById('intakeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('currentEmail').value;
+    document.getElementById('confirmEmail').textContent = email;
+    document.getElementById('intakeForm').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.3</div>
+</body>
+</html>
