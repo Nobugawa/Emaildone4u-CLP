@@ -641,12 +641,19 @@
       <div class="success-screen" id="successScreen">
         <div class="check">✅</div>
         <h2>You're all set!</h2>
-        <p>We received your intake form and will send your secure setup invitation to <strong id="confirmEmail"></strong> within 1 hour.</p>
-        <div class="next-steps">
+        <p>We received your intake form and will follow up with <strong id="confirmEmail"></strong> within 1 hour.</p>
+        <div class="next-steps" id="stepsOwnDomain" style="display:none;">
           <h4>What happens next</h4>
-          <div class="next-step-item"><div class="step-dot">1</div><div>We send you two secure invitation links — one for your domain, one for Google Workspace. No passwords needed.</div></div>
-          <div class="next-step-item"><div class="step-dot">2</div><div>You click accept on each link. Takes about 2 minutes.</div></div>
-          <div class="next-step-item"><div class="step-dot">3</div><div>We handle the entire setup — DNS, email configuration, spam protection — everything.</div></div>
+          <div class="next-step-item"><div class="step-dot">1</div><div>We'll email you exact steps to grant us DNS-only access through your registrar's own account settings — about 2-3 minutes, done on your end. You're never asked for a password.</div></div>
+          <div class="next-step-item"><div class="step-dot">2</div><div>Once access is granted, we configure everything — DNS records, your new Google Workspace account, SPF, DKIM, DMARC.</div></div>
+          <div class="next-step-item"><div class="step-dot">3</div><div>When your Workspace is ready, you'll enter your own payment card directly on Google's page — never shared with us.</div></div>
+          <div class="next-step-item"><div class="step-dot">4</div><div>You receive a handoff email with your new login, phone setup instructions, and a test confirmation.</div></div>
+        </div>
+        <div class="next-steps" id="stepsNewDomain" style="display:none;">
+          <h4>What happens next</h4>
+          <div class="next-step-item"><div class="step-dot">1</div><div>We purchase and register your domain directly — nothing needed from you on this step.</div></div>
+          <div class="next-step-item"><div class="step-dot">2</div><div>We build your new Google Workspace account and configure DNS, SPF, DKIM, DMARC.</div></div>
+          <div class="next-step-item"><div class="step-dot">3</div><div>When your Workspace is ready, you'll enter your own payment card directly on Google's page — never shared with us.</div></div>
           <div class="next-step-item"><div class="step-dot">4</div><div>You receive a handoff email with your new login, phone setup instructions, and a test confirmation.</div></div>
         </div>
       </div>
@@ -655,7 +662,8 @@
   </div>
 
   <div class="footer">
-    <p>[YOUR BUSINESS NAME] · [Your Phone] · [your@email.com]</p>
+    <img src="images/logo.png" alt="EmailDone4U" style="height:28px;width:auto;display:block;margin:0 auto 10px;">
+    <p><a href="mailto:help@emaildone4u.com" style="color:#64748b;text-decoration:none;">help@emaildone4u.com</a></p>
     <p style="margin-top:6px;">Google Workspace subscription (~$7/mo) billed directly to you by Google — not included in setup fee.</p>
   </div>
 
@@ -715,6 +723,7 @@
   document.getElementById('intakeForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const email = document.getElementById('currentEmail').value;
+    const ownsdomain = document.getElementById('domainStatus').value;
     const form = document.getElementById('intakeForm');
     const formData = new FormData(form);
 
@@ -727,10 +736,14 @@
     document.getElementById('confirmEmail').textContent = email;
     document.getElementById('intakeForm').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
+    // Show the accurate next-steps list for their actual situation --
+    // "yes" (they own a domain) needs a genuinely different explanation
+    // than "no"/"unsure" (we buy it -- nothing needed from them there).
+    document.getElementById(ownsdomain === 'yes' ? 'stepsOwnDomain' : 'stepsNewDomain').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.4</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.8</div>
 </body>
 </html>
