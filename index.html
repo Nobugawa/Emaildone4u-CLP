@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional Business Email Setup | [YOUR BUSINESS NAME]</title>
+<title>Professional Business Email Setup | EmailDone4U</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Epilogue:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -154,6 +154,9 @@ nav {
   box-shadow: 0 8px 24px rgba(29,78,216,0.35);
 }
 .btn-primary:hover { background: #1e40af; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(29,78,216,0.45); }
+/* On the blue CTA band, a solid-blue button disappears into the background -- flip to white */
+.cta-section .btn-primary { background: var(--white); color: var(--blue); box-shadow: 0 12px 32px rgba(6,26,64,0.25); }
+.cta-section .btn-primary:hover { background: var(--ice2); color: #1e40af; }
 
 .btn-outline {
   display: inline-flex; align-items: center; gap: 8px;
@@ -183,10 +186,10 @@ nav {
 
 /* Hero card */
 .hero-card {
-  background: var(--white);
-  border: 1px solid #e2e8f0;
+  background: var(--light);
+  border: 1px solid #cbd5e1;
   border-radius: 20px; padding: 36px;
-  box-shadow: 0 20px 50px rgba(15,23,42,0.08);
+  box-shadow: 0 24px 56px rgba(15,23,42,0.14);
   animation: fadeUp 0.6s 0.25s ease both;
 }
 .hero-card-title {
@@ -195,7 +198,7 @@ nav {
   margin-bottom: 20px;
 }
 .email-demo {
-  background: var(--light); border-radius: 10px;
+  background: var(--white); border-radius: 10px;
   padding: 14px 18px; margin-bottom: 12px;
   border: 1px solid #e2e8f0;
   display: flex; align-items: center; gap: 12px;
@@ -322,30 +325,31 @@ h2 {
 .nopass-step-text p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.55; }
 
 .nopass-visual {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
+  background: var(--white);
+  border: 1px solid rgba(255,255,255,0.4);
   border-radius: 20px; padding: 36px;
+  box-shadow: 0 24px 56px rgba(6,26,64,0.25);
 }
 .shield-big { font-size: 64px; text-align: center; margin-bottom: 24px; }
 .nopass-stat {
   text-align: center;
   font-family: 'Playfair Display', serif;
-  font-size: 52px; font-weight: 900; color: #4ade80;
+  font-size: 52px; font-weight: 900; color: #16a34a;
   line-height: 1; margin-bottom: 8px;
 }
 .nopass-stat-label {
-  text-align: center; font-size: 14px; color: rgba(255,255,255,0.5);
+  text-align: center; font-size: 14px; color: var(--slate);
   margin-bottom: 28px;
 }
 .nopass-checklist { display: flex; flex-direction: column; gap: 10px; }
 .nopass-check {
   display: flex; align-items: center; gap: 10px;
-  font-size: 14px; color: rgba(255,255,255,0.7);
+  font-size: 14px; color: var(--text);
 }
 .nopass-check::before {
   content: '✓'; flex-shrink: 0;
   width: 22px; height: 22px; border-radius: 50%;
-  background: rgba(34,197,94,0.15); color: #4ade80;
+  background: #dcfce7; color: #16a34a;
   font-size: 11px; font-weight: 700;
   display: flex; align-items: center; justify-content: center;
 }
@@ -890,7 +894,7 @@ footer p { color: var(--slate2); font-size: 12px; }
     </div>
   <p><a href="mailto:help@emaildone4u.com" style="color:var(--slate);text-decoration:none;">help@emaildone4u.com</a></p>
   <p style="margin-top:6px;">Not affiliated with Google LLC.</p>
-  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.5</span>
+  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.6</span>
 </footer>
 
 <!-- MODAL -->
