@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Setup Intake — [YOUR BUSINESS NAME]</title>
+<title>Email Setup Intake — EmailDone4U</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -473,7 +473,11 @@
     </div>
 
     <div class="card-body">
-      <form id="intakeForm">
+      <form id="intakeForm" name="email-setup-intake" data-netlify="true" netlify-honeypot="bot-field">
+        <p style="position:absolute;left:-9999px;">
+          <label>Don't fill this out: <input name="bot-field" /></label>
+        </p>
+        <input type="hidden" name="form-name" value="email-setup-intake" />
 
         <!-- Section 1: About You -->
         <div class="section">
@@ -485,22 +489,22 @@
           <div class="field-row">
             <div class="field">
               <label>Your Name <span class="req">*</span></label>
-              <input type="text" id="ownerName" placeholder="Jane Smith" required>
+              <input type="text" id="ownerName" name="owner_name" placeholder="Jane Smith" required>
             </div>
             <div class="field">
               <label>Business Name <span class="req">*</span></label>
-              <input type="text" id="bizName" placeholder="Acme Plumbing LLC" required>
+              <input type="text" id="bizName" name="business_name" placeholder="Acme Plumbing LLC" required>
             </div>
           </div>
 
           <div class="field-row">
             <div class="field">
               <label>Phone <span class="req">*</span></label>
-              <input type="tel" id="phone" placeholder="(555) 000-0000" required>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required>
             </div>
             <div class="field">
               <label>Current Email <span class="req">*</span> <span class="hint">we'll reply here</span></label>
-              <input type="email" id="currentEmail" placeholder="jane@gmail.com" required>
+              <input type="email" id="currentEmail" name="current_email" placeholder="jane@gmail.com" required>
             </div>
           </div>
         </div>
@@ -516,12 +520,12 @@
 
           <div class="field">
             <label>What domain do you want? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span></label>
-            <input type="text" id="domain" placeholder="yourbusiness.com" required oninput="updatePreview()">
+            <input type="text" id="domain" name="desired_domain" placeholder="yourbusiness.com" required oninput="updatePreview()">
           </div>
 
           <div class="field">
             <label>What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, info, hello</span></label>
-            <input type="text" id="username" placeholder="jane" required oninput="updatePreview()">
+            <input type="text" id="username" name="email_username" placeholder="jane" required oninput="updatePreview()">
           </div>
 
           <div class="field">
@@ -531,7 +535,7 @@
 
           <div class="field">
             <label>Additional email addresses needed? <span class="hint">optional — e.g. info@, billing@</span></label>
-            <input type="text" id="extraEmails" placeholder="info, billing, support">
+            <input type="text" id="extraEmails" name="extra_emails" placeholder="info, billing, support">
           </div>
         </div>
 
@@ -546,7 +550,7 @@
 
           <div class="field">
             <label>Do you already own this domain? <span class="req">*</span></label>
-            <select id="domainStatus" onchange="toggleRegistrar()" required>
+            <select id="domainStatus" name="already_owns_domain" onchange="toggleRegistrar()" required>
               <option value="">— select one —</option>
               <option value="yes">Yes, I already own it</option>
               <option value="no">No, I need to purchase one</option>
@@ -618,7 +622,7 @@
           </div>
           <div class="field">
             <label>Special requests or questions <span class="hint">optional</span></label>
-            <textarea id="notes" placeholder="e.g. I need to migrate emails from my old Gmail account, or I have a specific display name preference..."></textarea>
+            <textarea id="notes" name="notes" placeholder="e.g. I need to migrate emails from my old Gmail account, or I have a specific display name preference..."></textarea>
           </div>
         </div>
 
@@ -658,6 +662,17 @@
 </div>
 
 <script>
+  // Pre-select tier if linked here from a pricing button (?tier=standard|priority|rush)
+  (function preselectTier() {
+    const params = new URLSearchParams(window.location.search);
+    const tier = params.get('tier');
+    const map = { standard: 't1', priority: 't2', rush: 't3' };
+    if (tier && map[tier]) {
+      const el = document.getElementById(map[tier]);
+      if (el) el.checked = true;
+    }
+  })();
+
   function updatePreview() {
     const user = document.getElementById('username').value.trim().toLowerCase().replace(/\s+/g, '');
     const domain = document.getElementById('domain').value.trim().toLowerCase().replace(/\s+/g, '');
@@ -700,6 +715,15 @@
   document.getElementById('intakeForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const email = document.getElementById('currentEmail').value;
+    const form = document.getElementById('intakeForm');
+    const formData = new FormData(form);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString(),
+    }).catch(err => console.log('Form note:', err));
+
     document.getElementById('confirmEmail').textContent = email;
     document.getElementById('intakeForm').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
@@ -707,6 +731,6 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.3</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.4</div>
 </body>
 </html>

@@ -186,10 +186,10 @@ nav {
 
 /* Hero card */
 .hero-card {
-  background: var(--light);
-  border: 1px solid #cbd5e1;
+  background: #e2e8f0;
+  border: 1px solid #94a3b8;
   border-radius: 20px; padding: 36px;
-  box-shadow: 0 24px 56px rgba(15,23,42,0.14);
+  box-shadow: 0 28px 60px rgba(15,23,42,0.20);
   animation: fadeUp 0.6s 0.25s ease both;
 }
 .hero-card-title {
@@ -256,7 +256,7 @@ h2 {
 }
 
 /* ── PROBLEM ── */
-.problem-section { background: var(--light); }
+.problem-section { background: #e2e8f0; }
 
 .problem-grid {
   display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
@@ -276,7 +276,7 @@ h2 {
 .problem-num {
   font-family: 'Playfair Display', serif;
   font-size: 48px; font-weight: 900;
-  color: var(--ice); line-height: 1;
+  color: var(--sky); line-height: 1;
   margin-bottom: 12px;
 }
 .problem-card h3 {
@@ -524,48 +524,6 @@ footer {
 .footer-links a:hover { color: var(--navy); }
 footer p { color: var(--slate2); font-size: 12px; }
 
-/* ── MODAL ── */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 999;
-  background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-  align-items: center; justify-content: center; padding: 20px;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-  background: white; border-radius: 20px;
-  padding: 48px 40px; max-width: 480px; width: 100%;
-  position: relative; animation: fadeUp 0.3s ease;
-}
-.modal-close {
-  position: absolute; top: 16px; right: 20px;
-  background: none; border: none; font-size: 24px;
-  cursor: pointer; color: var(--slate); line-height: 1;
-}
-.modal h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px; font-weight: 900; margin-bottom: 8px;
-}
-.modal p { font-size: 14px; color: var(--slate); margin-bottom: 28px; }
-.modal-form { display: flex; flex-direction: column; gap: 14px; }
-.modal-form input, .modal-form select {
-  padding: 12px 16px; border: 1.5px solid #e2e8f0;
-  border-radius: 10px; font-family: 'Epilogue', sans-serif;
-  font-size: 14px; outline: none; transition: border-color 0.2s;
-  background: var(--light);
-}
-.modal-form input:focus, .modal-form select:focus { border-color: var(--blue); background: white; }
-.modal-submit {
-  padding: 15px; background: var(--blue); color: white;
-  border: none; border-radius: 10px; font-family: 'Epilogue', sans-serif;
-  font-size: 15px; font-weight: 700; cursor: pointer;
-  transition: background 0.2s;
-}
-.modal-submit:hover { background: #1e40af; }
-.modal-success { display: none; text-align: center; padding: 20px 0; }
-.modal-success .big-check { font-size: 52px; margin-bottom: 16px; }
-.modal-success h4 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-.modal-success p { font-size: 14px; color: var(--slate); }
-
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -603,15 +561,6 @@ footer p { color: var(--slate2); font-size: 12px; }
 <body>
 
 
-<!-- Netlify Forms bot detection -->
-<form name="b2b-intake" netlify netlify-honeypot="bot-field" hidden>
-  <input name="bot-field">
-  <input name="owner-name">
-  <input name="business-name">
-  <input name="email">
-  <input name="phone">
-  <input name="package">
-</form>
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-brand" style="line-height:1;"><img src="images/logo.png" alt="EmailDone4u" style="height:46px;width:auto;display:block;"></a>
@@ -619,7 +568,7 @@ footer p { color: var(--slate2); font-size: 12px; }
     <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
-    <a href="#" class="nav-cta" onclick="openModal()">Get Started</a>
+    <a href="intake_form.html" class="nav-cta">Get Started</a>
   </div>
   <div class="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -629,7 +578,7 @@ footer p { color: var(--slate2); font-size: 12px; }
   <a href="#how" onclick="toggleMenu()">How It Works</a>
   <a href="#pricing" onclick="toggleMenu()">Pricing</a>
   <a href="#faq" onclick="toggleMenu()">FAQ</a>
-  <a href="#" onclick="openModal();toggleMenu()">Get Started →</a>
+  <a href="intake_form.html">Get Started →</a>
 </div>
 
 <!-- HERO -->
@@ -640,7 +589,7 @@ footer p { color: var(--slate2); font-size: 12px; }
       <h1>Your business email<br>should work as hard<br>as <em>you do</em></h1>
       <p class="hero-sub">We set up your custom domain email — no passwords shared, no DNS headaches, done in as little as one day. You just send emails.</p>
       <div class="hero-actions">
-        <a href="#" class="btn-primary" onclick="openModal()">Get My Email Set Up →</a>
+        <a href="intake_form.html" class="btn-primary">Get My Email Set Up →</a>
         <a href="#how" class="btn-outline">See How It Works</a>
       </div>
       <div class="trust-pills">
@@ -672,7 +621,7 @@ footer p { color: var(--slate2); font-size: 12px; }
           <span class="email-badge badge-good">✓ Trusted</span>
         </div>
         <div class="card-note">
-          ⚡ Setup takes less than a day. You never share a password.
+          ⚡ You never share a password — no matter which setup speed you choose.
         </div>
       </div>
     </div>
@@ -716,15 +665,15 @@ footer p { color: var(--slate2); font-size: 12px; }
         <div class="nopass-step reveal">
           <div class="step-circle">1</div>
           <div class="nopass-step-text">
-            <h4>You accept a secure invitation link</h4>
-            <p>We send you a Google delegated-admin invite and a domain collaborator link. You click accept — no password ever leaves your hands.</p>
+            <h4>Already have a domain? You grant access — not a password</h4>
+            <p>We send you exact click-by-click steps (or a short video) for your specific registrar's own sharing settings — 2–3 minutes, done inside your own account. Buying a new domain instead? Skip this step entirely; we handle it on our end.</p>
           </div>
         </div>
         <div class="nopass-step reveal">
           <div class="step-circle">2</div>
           <div class="nopass-step-text">
-            <h4>We do all the technical work</h4>
-            <p>DNS records, Google Workspace setup, SPF, DKIM, DMARC — everything configured correctly while you get on with your day.</p>
+            <h4>We build your Google Workspace account</h4>
+            <p>DNS records, SPF, DKIM, DMARC — all configured and tested on our end. When it's time to activate billing, you enter your own card directly on Google's page — never shared with us.</p>
           </div>
         </div>
         <div class="nopass-step reveal">
@@ -765,8 +714,8 @@ footer p { color: var(--slate2); font-size: 12px; }
       </div>
       <div class="step-item reveal">
         <div class="step-icon">🔗<span class="step-num">2</span></div>
-        <h4>Accept two invitation links</h4>
-        <p>We send secure links to your domain registrar and Google Workspace. You click accept — no passwords involved.</p>
+        <h4>Grant access — only if you already own a domain</h4>
+        <p>We send you exact steps for your registrar's own sharing settings, 2-3 minutes. Buying a new domain instead? We handle that ourselves — nothing needed from you here.</p>
       </div>
       <div class="step-item reveal">
         <div class="step-icon">⚙️<span class="step-num">3</span></div>
@@ -801,7 +750,7 @@ footer p { color: var(--slate2); font-size: 12px; }
           <div class="price-feature">Full delivery test</div>
           <div class="price-feature">30-day support included</div>
         </div>
-        <button class="btn-card" onclick="openModal('Standard - $150')">Get Started</button>
+        <a href="intake_form.html?tier=standard" class="btn-card" style="text-decoration:none;">Get Started</a>
       </div>
       <div class="price-card featured reveal">
         <div class="popular-badge">Most Popular</div>
@@ -816,7 +765,7 @@ footer p { color: var(--slate2); font-size: 12px; }
           <div class="price-feature">Full delivery test</div>
           <div class="price-feature">30-day support included</div>
         </div>
-        <button class="btn-card" onclick="openModal('Priority - $200')">Get Started</button>
+        <a href="intake_form.html?tier=priority" class="btn-card" style="text-decoration:none;">Get Started</a>
       </div>
       <div class="price-card reveal">
         <div class="price-tier">Rush</div>
@@ -830,7 +779,7 @@ footer p { color: var(--slate2); font-size: 12px; }
           <div class="price-feature">Full delivery test</div>
           <div class="price-feature">30-day support included</div>
         </div>
-        <button class="btn-card" onclick="openModal('Rush - $300')">Get Started</button>
+        <a href="intake_form.html?tier=rush" class="btn-card" style="text-decoration:none;">Get Started</a>
       </div>
     </div>
     <p class="pricing-note reveal">⚡ Same-day Rush slots are limited — contact us early to reserve yours.</p>
@@ -878,7 +827,7 @@ footer p { color: var(--slate2); font-size: 12px; }
     <h2>Ready to look like the professional you are?</h2>
     <p>Join the businesses that stopped losing clients to a Gmail address.</p>
     <div class="cta-actions">
-      <a href="#" class="btn-primary" onclick="openModal()">Get My Email Set Up →</a>
+      <a href="intake_form.html" class="btn-primary">Get My Email Set Up →</a>
       
     </div>
   </div>
@@ -894,71 +843,10 @@ footer p { color: var(--slate2); font-size: 12px; }
     </div>
   <p><a href="mailto:help@emaildone4u.com" style="color:var(--slate);text-decoration:none;">help@emaildone4u.com</a></p>
   <p style="margin-top:6px;">Not affiliated with Google LLC.</p>
-  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.6</span>
+  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.7</span>
 </footer>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div id="modalForm">
-      <h3>Let's get you set up</h3>
-      <p>Fill in the basics and we'll send your secure invitation links within 1 hour.</p>
-      <div class="modal-form">
-        <input type="text" placeholder="Your name" id="mName" required>
-        <input type="text" placeholder="Business name" id="mBiz" required>
-        <input type="email" placeholder="Your email address" id="mEmail" required>
-        <input type="tel" placeholder="Phone number (optional)">
-        <select id="mTier">
-          <option value="">Select a package</option>
-          <option value="Standard - $150">Standard — $150 (2 days)</option>
-          <option value="Priority - $200">Priority — $200 (24 hours)</option>
-          <option value="Rush - $300">Rush — $300 (same day)</option>
-        </select>
-        <button class="modal-submit" onclick="submitModal()">Submit — Takes 3 Minutes →</button>
-      </div>
-    </div>
-    <div class="modal-success" id="modalSuccess">
-      <div class="big-check">✅</div>
-      <h4>You're all set!</h4>
-      <p>We'll send your secure setup invitation to <strong id="confirmEmailModal"></strong> within 1 hour. No passwords needed — just two clicks on the links we send.</p>
-    </div>
-  </div>
-</div>
-
-<script>
-// Modal
-let selectedTier = '';
-function openModal(tier='') {
-  if(tier) { document.getElementById('mTier').value = tier; }
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeModalOutside(e) { if(e.target === document.getElementById('modalOverlay')) closeModal(); }
-function submitModal() {
-  const name = document.getElementById('mName').value;
-  const biz  = document.getElementById('mBiz').value;
-  const email = document.getElementById('mEmail').value;
-  const tier  = document.getElementById('mTier').value;
-  if(!name || !email) { alert('Please fill in your name and email.'); return; }
-  const formData = new FormData();
-  formData.append('form-name', 'b2b-intake');
-  formData.append('owner-name', name);
-  formData.append('business-name', biz);
-  formData.append('email', email);
-  formData.append('package', tier);
-  fetch('/', { method: 'POST', body: formData })
-    .catch(err => console.log('Form note:', err));
-  document.getElementById('confirmEmailModal').textContent = email;
-  document.getElementById('modalForm').style.display = 'none';
-  document.getElementById('modalSuccess').style.display = 'block';
-}
-
-// Nav
+<script>// Nav
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
