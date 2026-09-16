@@ -39,26 +39,26 @@ body {
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 0 5%;
-  height: 68px;
+  height: 82px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(13,27,46,0.92);
+  background: rgba(255,255,255,0.96);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid #e2e8f0;
 }
 .nav-brand {
   font-family: 'Playfair Display', serif;
   font-size: 18px; font-weight: 700;
-  color: var(--white);
+  color: var(--navy);
   text-decoration: none;
   letter-spacing: -0.01em;
 }
 .nav-links { display: flex; align-items: center; gap: 32px; }
 .nav-links a {
-  color: rgba(255,255,255,0.65);
+  color: var(--slate);
   text-decoration: none; font-size: 14px; font-weight: 500;
   transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--white); }
+.nav-links a:hover { color: var(--navy); }
 .nav-cta {
   background: var(--blue); color: var(--white) !important;
   padding: 9px 22px; border-radius: 8px; font-weight: 600 !important;
@@ -66,19 +66,21 @@ nav {
 }
 .nav-cta:hover { background: #1e40af !important; color: var(--white) !important; }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-.hamburger span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; transition: 0.3s; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--navy); border-radius: 2px; transition: 0.3s; }
 .mobile-menu {
-  display: none; position: fixed; top: 68px; left: 0; right: 0;
-  background: var(--navy); padding: 24px 5%; flex-direction: column; gap: 20px;
-  z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: none; position: fixed; top: 82px; left: 0; right: 0;
+  background: var(--white); padding: 24px 5%; flex-direction: column; gap: 20px;
+  z-index: 99; border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 12px 24px rgba(15,23,42,0.06);
 }
-.mobile-menu a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 16px; font-weight: 500; }
+.mobile-menu a { color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; }
 .mobile-menu.open { display: flex; }
+
 
 /* ── HERO ── */
 .hero {
   min-height: 100vh;
-  background: var(--navy);
+  background: linear-gradient(180deg, var(--ice2) 0%, var(--white) 55%);
   display: flex; align-items: center;
   padding: 120px 5% 80px;
   position: relative; overflow: hidden;
@@ -87,9 +89,9 @@ nav {
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 70% 60% at 15% 50%, rgba(29,78,216,0.22) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 70% at 85% 20%, rgba(59,130,246,0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 70% 80%, rgba(245,158,11,0.06) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 60% at 15% 50%, rgba(29,78,216,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 70% at 85% 20%, rgba(59,130,246,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 70% 80%, rgba(245,158,11,0.05) 0%, transparent 60%);
   pointer-events: none;
 }
 /* Animated grid */
@@ -110,8 +112,8 @@ nav {
 
 .hero-tag {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(29,78,216,0.2); border: 1px solid rgba(59,130,246,0.3);
-  color: #93c5fd; font-size: 12px; font-weight: 600;
+  background: var(--ice); border: 1px solid #c7dcfb;
+  color: var(--blue); font-size: 12px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
   padding: 7px 16px; border-radius: 100px;
   margin-bottom: 28px;
@@ -122,16 +124,16 @@ nav {
 .hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(38px, 4.5vw, 60px);
-  line-height: 1.08; color: var(--white);
+  line-height: 1.08; color: var(--navy);
   margin-bottom: 24px; font-weight: 900;
   letter-spacing: -0.02em;
   animation: fadeUp 0.6s 0.1s ease both;
 }
-.hero h1 em { font-style: italic; color: #93c5fd; }
+.hero h1 em { font-style: italic; color: var(--blue); }
 
 .hero-sub {
   font-size: 17px; line-height: 1.7;
-  color: rgba(255,255,255,0.6);
+  color: var(--slate);
   margin-bottom: 40px;
   animation: fadeUp 0.6s 0.2s ease both;
 }
@@ -155,14 +157,14 @@ nav {
 
 .btn-outline {
   display: inline-flex; align-items: center; gap: 8px;
-  background: transparent; color: rgba(255,255,255,0.8);
+  background: transparent; color: var(--navy);
   padding: 14px 28px; border-radius: 10px;
   font-family: 'Epilogue', sans-serif;
   font-size: 15px; font-weight: 600;
-  text-decoration: none; border: 1.5px solid rgba(255,255,255,0.2); cursor: pointer;
+  text-decoration: none; border: 1.5px solid #cbd5e1; cursor: pointer;
   transition: all 0.2s; white-space: nowrap;
 }
-.btn-outline:hover { border-color: rgba(255,255,255,0.5); color: white; transform: translateY(-2px); }
+.btn-outline:hover { border-color: var(--navy); color: var(--navy); transform: translateY(-2px); }
 
 .trust-pills {
   display: flex; flex-wrap: wrap; gap: 12px;
@@ -171,9 +173,9 @@ nav {
 }
 .pill {
   display: flex; align-items: center; gap: 7px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.7);
+  background: var(--light);
+  border: 1px solid #e2e8f0;
+  color: var(--slate);
   padding: 8px 16px; border-radius: 100px;
   font-size: 13px; font-weight: 500;
 }
@@ -181,10 +183,10 @@ nav {
 
 /* Hero card */
 .hero-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--white);
+  border: 1px solid #e2e8f0;
   border-radius: 20px; padding: 36px;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px rgba(15,23,42,0.08);
   animation: fadeUp 0.6s 0.25s ease both;
 }
 .hero-card-title {
@@ -193,9 +195,9 @@ nav {
   margin-bottom: 20px;
 }
 .email-demo {
-  background: rgba(255,255,255,0.06); border-radius: 10px;
+  background: var(--light); border-radius: 10px;
   padding: 14px 18px; margin-bottom: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid #e2e8f0;
   display: flex; align-items: center; gap: 12px;
 }
 .email-demo .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
@@ -207,21 +209,21 @@ nav {
   font-size: 14px; font-weight: 600;
   flex: 1;
 }
-.email-bad { color: #f87171; }
-.email-good { color: #4ade80; }
+.email-bad { color: #dc2626; }
+.email-good { color: #16a34a; }
 .email-badge {
   font-size: 10px; font-weight: 700; padding: 3px 8px;
   border-radius: 4px; text-transform: uppercase; letter-spacing: 0.06em;
 }
-.badge-bad { background: rgba(239,68,68,0.15); color: #f87171; }
-.badge-good { background: rgba(34,197,94,0.15); color: #4ade80; }
+.badge-bad { background: #fee2e2; color: #dc2626; }
+.badge-good { background: #dcfce7; color: #16a34a; }
 .arrow-down {
   text-align: center; color: var(--slate2); font-size: 20px; margin: 4px 0;
 }
 .card-note {
-  margin-top: 20px; padding: 14px; background: rgba(245,158,11,0.08);
-  border: 1px solid rgba(245,158,11,0.2); border-radius: 10px;
-  font-size: 13px; color: #fcd34d; line-height: 1.55;
+  margin-top: 20px; padding: 14px; background: var(--amber2);
+  border: 1px solid #fde4a8; border-radius: 10px;
+  font-size: 13px; color: #92610a; line-height: 1.55;
 }
 
 /* ── SECTIONS ── */
@@ -281,11 +283,11 @@ h2 {
 .problem-card p { font-size: 14px; color: var(--slate); line-height: 1.65; }
 
 /* ── NO PASSWORD ── */
-.nopass-section { background: var(--navy); overflow: hidden; position: relative; }
+.nopass-section { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); overflow: hidden; position: relative; }
 .nopass-section::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(29,78,216,0.2) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,255,255,0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 .nopass-inner {
@@ -311,17 +313,17 @@ h2 {
 .nopass-step:last-child { border-bottom: none; }
 .step-circle {
   width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(29,78,216,0.3); border: 1px solid rgba(59,130,246,0.4);
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
-  font-size: 13px; font-weight: 700; color: #93c5fd;
+  font-size: 13px; font-weight: 700; color: var(--white);
 }
 .nopass-step-text h4 { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
 .nopass-step-text p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.55; }
 
 .nopass-visual {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
   border-radius: 20px; padding: 36px;
 }
 .shield-big { font-size: 64px; text-align: center; margin-bottom: 24px; }
@@ -396,8 +398,8 @@ h2 {
 .price-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.1); }
 
 .price-card.featured {
-  background: var(--navy); border-color: var(--blue);
-  box-shadow: 0 20px 60px rgba(29,78,216,0.25);
+  background: var(--ice2); border-color: var(--blue);
+  box-shadow: 0 20px 60px rgba(29,78,216,0.15);
   transform: scale(1.03);
 }
 .price-card.featured:hover { transform: scale(1.03) translateY(-6px); }
@@ -411,28 +413,28 @@ h2 {
 }
 
 .price-tier { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate); margin-bottom: 8px; }
-.price-card.featured .price-tier { color: rgba(255,255,255,0.5); }
+.price-card.featured .price-tier { color: var(--slate); }
 
 .price-amount {
   font-family: 'Playfair Display', serif;
   font-size: 56px; font-weight: 900; line-height: 1;
   color: var(--navy); margin-bottom: 4px;
 }
-.price-card.featured .price-amount { color: var(--white); }
+.price-card.featured .price-amount { color: var(--navy); }
 
 .price-timeline {
   font-size: 14px; color: var(--slate);
   margin-bottom: 28px; padding-bottom: 28px;
   border-bottom: 1px solid #e2e8f0;
 }
-.price-card.featured .price-timeline { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.1); }
+.price-card.featured .price-timeline { color: var(--slate); border-color: #cbd9f5; }
 
 .price-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
 .price-feature {
   display: flex; gap: 10px; align-items: flex-start;
   font-size: 14px; color: var(--text);
 }
-.price-card.featured .price-feature { color: rgba(255,255,255,0.8); }
+.price-card.featured .price-feature { color: var(--text); }
 .price-feature::before {
   content: '✓'; flex-shrink: 0;
   width: 18px; height: 18px; border-radius: 4px;
@@ -441,7 +443,7 @@ h2 {
   display: flex; align-items: center; justify-content: center;
   margin-top: 1px;
 }
-.price-card.featured .price-feature::before { background: rgba(59,130,246,0.2); color: #93c5fd; }
+.price-card.featured .price-feature::before { background: var(--ice); color: var(--blue); }
 
 .btn-card {
   display: block; text-align: center;
@@ -489,7 +491,7 @@ h2 {
 
 /* ── CTA BANNER ── */
 .cta-section {
-  background: var(--navy); text-align: center;
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); text-align: center;
   padding: 100px 5%;
   position: relative; overflow: hidden;
 }
@@ -504,18 +506,19 @@ h2 {
 
 /* ── FOOTER ── */
 footer {
-  background: #070f1a; padding: 40px 5%;
+  background: var(--white); padding: 40px 5%;
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 20px;
+  border-top: 1px solid #e2e8f0;
 }
 .footer-brand {
   font-family: 'Playfair Display', serif;
-  font-size: 16px; color: white; font-weight: 700;
+  font-size: 16px; color: var(--navy); font-weight: 700;
 }
 .footer-links { display: flex; gap: 28px; }
-.footer-links a { color: rgba(255,255,255,0.4); font-size: 13px; text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: rgba(255,255,255,0.8); }
-footer p { color: rgba(255,255,255,0.25); font-size: 12px; }
+.footer-links a { color: var(--slate); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--navy); }
+footer p { color: var(--slate2); font-size: 12px; }
 
 /* ── MODAL ── */
 .modal-overlay {
@@ -607,7 +610,7 @@ footer p { color: rgba(255,255,255,0.25); font-size: 12px; }
 </form>
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-brand" style="line-height:1;"><img src="images/logo.png" alt="EmailDone4u" style="height:30px;width:auto;display:block;"></a>
+  <a href="#" class="nav-brand" style="line-height:1;"><img src="images/logo.png" alt="EmailDone4u" style="height:46px;width:auto;display:block;"></a>
   <div class="nav-links">
     <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
@@ -879,15 +882,15 @@ footer p { color: rgba(255,255,255,0.25); font-size: 12px; }
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand" style="line-height:1;"><img src="images/logo.png" alt="EmailDone4u" style="height:24px;width:auto;display:block;"></div>
+  <div class="footer-brand" style="line-height:1;"><img src="images/logo.png" alt="EmailDone4u" style="height:34px;width:auto;display:block;"></div>
   <div class="footer-links">
     <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
     </div>
-  <p><a href="mailto:help@emaildone4u.com" style="color:rgba(255,255,255,0.5);text-decoration:none;">help@emaildone4u.com</a></p>
+  <p><a href="mailto:help@emaildone4u.com" style="color:var(--slate);text-decoration:none;">help@emaildone4u.com</a></p>
   <p style="margin-top:6px;">Not affiliated with Google LLC.</p>
-  <span style="font-size:11px;color:rgba(255,255,255,0.25);text-align:right;margin-top:8px;display:block;">V1.3</span>
+  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.5</span>
 </footer>
 
 <!-- MODAL -->
