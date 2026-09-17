@@ -545,6 +545,24 @@
           </div>
 
           <div class="info-box" id="domainInfo"></div>
+
+          <div id="hostingSection" style="display:none;">
+            <div class="field">
+              <label>Do you have a website? If so, where's it hosted? <span class="hint">helps us find the right place to configure email — not always the same as your registrar</span></label>
+              <select id="hostingPlatform" name="hosting_platform">
+                <option value="">— select one —</option>
+                <option value="no-website">No website</option>
+                <option value="godaddy-builder">GoDaddy Website Builder</option>
+                <option value="squarespace">Squarespace</option>
+                <option value="wix">Wix</option>
+                <option value="wordpress">WordPress</option>
+                <option value="shopify">Shopify</option>
+                <option value="netlify-vercel-webflow">Custom-built (Netlify, Vercel, Webflow, or similar)</option>
+                <option value="someone-else">Someone else manages it for me</option>
+                <option value="not-sure">Not sure</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="divider"></div>
@@ -557,14 +575,9 @@
           </div>
 
           <div class="field">
-            <label>What domain do you want? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span></label>
+            <label id="domainFieldLabel">What domain do you want? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span></label>
             <input type="text" id="domain" name="desired_domain" placeholder="yourbusiness.com" required oninput="updatePreview()">
-            <p style="font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.5;">
-              Don't have this yet? Quickly check availability at
-              <a href="https://www.namecheap.com" target="_blank" rel="noopener" style="color:#3b82f6;">namecheap.com</a>
-              first. Most .com names are taken — if yours is, try a short variation
-              (getacme.com, acmehq.com) or another ending (.co, .net, .biz) and enter
-              whatever you land on below. We'll register and configure it either way.
+            <p id="domainFieldHint" style="font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.5;">
             </p>
           </div>
 
@@ -585,10 +598,10 @@
 
           <div class="field">
             <label>Does anyone else on your team need their own separate email login? <span class="hint">extra cost — we'll go over pricing when we follow up</span></label>
-            <select id="separateMailbox" name="needs_separate_mailbox">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
+            <div class="registrar-grid">
+              <div class="registrar-option"><input type="radio" name="needs_separate_mailbox" id="sm-no" value="no" checked><label class="registrar-pill" for="sm-no">No</label></div>
+              <div class="registrar-option"><input type="radio" name="needs_separate_mailbox" id="sm-yes" value="yes"><label class="registrar-pill" for="sm-yes">Yes</label></div>
+            </div>
           </div>
         </div>
 
@@ -718,22 +731,37 @@
     const val = document.getElementById('domainStatus').value;
     const reg = document.getElementById('registrarSection');
     const info = document.getElementById('domainInfo');
+    const hosting = document.getElementById('hostingSection');
+    const label = document.getElementById('domainFieldLabel');
+    const hint = document.getElementById('domainFieldHint');
 
     if (val === 'yes') {
       reg.style.display = 'block';
+      hosting.style.display = 'block';
       info.className = 'info-box';
       info.innerHTML = '';
+      label.innerHTML = 'What\'s the domain you already own? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span>';
+      hint.innerHTML = '';
     } else if (val === 'no') {
       reg.style.display = 'none';
+      hosting.style.display = 'none';
       info.className = 'info-box show';
       info.innerHTML = '<strong>No problem!</strong> We\'ll purchase and register the domain for you as part of the setup. Domain registration costs typically $12–18/year and will be billed to your card directly.';
+      label.innerHTML = 'What domain would you like to register? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span>';
+      hint.innerHTML = 'Picking a name is up to you — we don\'t offer naming help. Quickly check availability yourself at <a href="https://www.namecheap.com" target="_blank" rel="noopener" style="color:#3b82f6;">namecheap.com</a>. Most .com names are already taken; if yours is, try a short variation (getacme.com, acmehq.com) or another ending (.co, .net, .biz), then enter whatever you land on below.';
     } else if (val === 'unsure') {
       reg.style.display = 'none';
+      hosting.style.display = 'block';
       info.className = 'info-box show';
       info.innerHTML = '<strong>No worries.</strong> We\'ll check for you when we begin setup and let you know what we find before proceeding.';
+      label.innerHTML = 'What domain would you like, if available? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span>';
+      hint.innerHTML = '';
     } else {
       reg.style.display = 'none';
+      hosting.style.display = 'none';
       info.className = 'info-box';
+      label.innerHTML = 'What domain do you want? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span>';
+      hint.innerHTML = '';
     }
   }
 
@@ -761,6 +789,6 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.11</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.13</div>
 </body>
 </html>
