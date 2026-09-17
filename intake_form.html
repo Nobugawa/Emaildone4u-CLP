@@ -431,8 +431,9 @@
   .footer {
     text-align: center;
     margin-top: 32px;
-    color: #64748b;
-    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    font-weight: 600;
     line-height: 1.6;
   }
 
@@ -512,44 +513,15 @@
         <div class="divider"></div>
 
         <!-- Section 2: Your New Email -->
+        <!-- Section 2: Domain (moved before email address -- you need to know this first) -->
         <div class="section">
           <div class="section-label">
             <div class="section-num">2</div>
-            <h3>Your New Email Address</h3>
-          </div>
-
-          <div class="field">
-            <label>What domain do you want? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span></label>
-            <input type="text" id="domain" name="desired_domain" placeholder="yourbusiness.com" required oninput="updatePreview()">
-          </div>
-
-          <div class="field">
-            <label>What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, info, hello</span></label>
-            <input type="text" id="username" name="email_username" placeholder="jane" required oninput="updatePreview()">
-          </div>
-
-          <div class="field">
-            <label>Your new email will look like:</label>
-            <div class="email-preview empty" id="emailPreview">Fill in the fields above to see your new address</div>
-          </div>
-
-          <div class="field">
-            <label>Additional email addresses needed? <span class="hint">optional — e.g. info@, billing@</span></label>
-            <input type="text" id="extraEmails" name="extra_emails" placeholder="info, billing, support">
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- Section 3: Domain -->
-        <div class="section">
-          <div class="section-label">
-            <div class="section-num">3</div>
             <h3>Domain & Registrar</h3>
           </div>
 
           <div class="field">
-            <label>Do you already own this domain? <span class="req">*</span></label>
+            <label>Do you already own a domain? <span class="req">*</span></label>
             <select id="domainStatus" name="already_owns_domain" onchange="toggleRegistrar()" required>
               <option value="">— select one —</option>
               <option value="yes">Yes, I already own it</option>
@@ -573,6 +545,51 @@
           </div>
 
           <div class="info-box" id="domainInfo"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 3: Your New Email Address -->
+        <div class="section">
+          <div class="section-label">
+            <div class="section-num">3</div>
+            <h3>Your New Email Address</h3>
+          </div>
+
+          <div class="field">
+            <label>What domain do you want? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span></label>
+            <input type="text" id="domain" name="desired_domain" placeholder="yourbusiness.com" required oninput="updatePreview()">
+            <p style="font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.5;">
+              Don't have this yet? Quickly check availability at
+              <a href="https://www.namecheap.com" target="_blank" rel="noopener" style="color:#3b82f6;">namecheap.com</a>
+              first. Most .com names are taken — if yours is, try a short variation
+              (getacme.com, acmehq.com) or another ending (.co, .net, .biz) and enter
+              whatever you land on below. We'll register and configure it either way.
+            </p>
+          </div>
+
+          <div class="field">
+            <label>What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, info, hello</span></label>
+            <input type="text" id="username" name="email_username" placeholder="jane" required oninput="updatePreview()">
+          </div>
+
+          <div class="field">
+            <label>Your new email will look like:</label>
+            <div class="email-preview empty" id="emailPreview">Fill in the fields above to see your new address</div>
+          </div>
+
+          <div class="field">
+            <label>Additional addresses that forward to this same inbox? <span class="hint">optional — e.g. info@, billing@ — not separate logins</span></label>
+            <input type="text" id="extraEmails" name="extra_emails" placeholder="info, billing, support">
+          </div>
+
+          <div class="field">
+            <label>Does anyone else on your team need their own separate email login? <span class="hint">extra cost — we'll go over pricing when we follow up</span></label>
+            <select id="separateMailbox" name="needs_separate_mailbox">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
         </div>
 
         <div class="divider"></div>
@@ -633,7 +650,7 @@
         </div>
 
         <button type="submit" class="submit-btn">Submit & Get Started →</button>
-        <p class="submit-note">We'll follow up within 1 hour with your secure access invitation links.</p>
+        <p class="submit-note">We'll follow up within one business day — often much sooner.</p>
 
       </form>
 
@@ -641,7 +658,7 @@
       <div class="success-screen" id="successScreen">
         <div class="check">✅</div>
         <h2>You're all set!</h2>
-        <p>We received your intake form and will follow up with <strong id="confirmEmail"></strong> within 1 hour.</p>
+        <p>We received your intake form and will follow up with <strong id="confirmEmail"></strong> within one business day — often much sooner.</p>
         <div class="next-steps" id="stepsOwnDomain" style="display:none;">
           <h4>What happens next</h4>
           <div class="next-step-item"><div class="step-dot">1</div><div>We'll email you exact steps to grant us DNS-only access through your registrar's own account settings — about 2-3 minutes, done on your end. You're never asked for a password.</div></div>
@@ -663,7 +680,7 @@
 
   <div class="footer">
     <img src="images/logo.png" alt="EmailDone4U" style="height:28px;width:auto;display:block;margin:0 auto 10px;">
-    <p><a href="mailto:help@emaildone4u.com" style="color:#64748b;text-decoration:none;">help@emaildone4u.com</a></p>
+    <p><a href="mailto:help@emaildone4u.com" style="color:rgba(255,255,255,0.9);text-decoration:none;">help@emaildone4u.com</a></p>
     <p style="margin-top:6px;">Google Workspace subscription (~$7/mo) billed directly to you by Google — not included in setup fee.</p>
   </div>
 
@@ -744,6 +761,6 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.8</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.11</div>
 </body>
 </html>
