@@ -1,59 +1,31 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.13
+Built: September 2026 — Package v1.15
 Domain: emaildone4u.com
 
-WHAT CHANGED THIS PASS (intake_form.html only)
+WHAT CHANGED THIS PASS (all three HTML files)
 --------------------------------------------------
-New question: "Do you have a website? If so, where's it hosted?"
-  - Only shown when the client already owns a domain (or is unsure) --
-    skipped entirely for the fresh-purchase path, since there's no
-    existing DNS complexity to ask about there.
-  - Options cover the common small-business hosts (GoDaddy Website
-    Builder, Squarespace, Wix, WordPress, Shopify), a "custom-built"
-    catch-all (Netlify/Vercel/Webflow), plus "No website," "Someone
-    else manages it for me," and "Not sure."
-  - Field name: hosting_platform
+Last pass (v1.14) only fixed intake_form.html's domain-purchase
+promise. A broader sweep this time found FOUR more places carrying
+the same now-outdated "we'll buy it for you" claim -- all fixed:
 
-WHY THIS MATTERS (read before building the delegation step)
-------------------------------------------------------------------
-DNS control and domain registration are NOT always the same place.
-If a client's website is built on a platform like Netlify, Wix, or
-Squarespace and they pointed their domain's nameservers there, DNS
-records (including the MX/SPF/DKIM/DMARC records email setup needs)
-live on THAT platform, not at the registrar -- the registrar becomes
-just a billing/ownership record with zero DNS control. So "where do
-we request delegated access" depends on where DNS actually lives, not
-just where the domain is registered.
+  - index.html: FAQ answer to "Do I need to already own a domain?"
+    rewritten to explain self-registration + recommend Namecheap.
+  - index.html: all THREE pricing cards (Standard/Priority/Rush) listed
+    "Domain purchase & configuration" as an included feature -- this
+    was the most prominent leftover, a structural pricing-page claim,
+    not just FAQ text. Now reads "Domain configuration" (still
+    accurate -- you still configure/point DNS, just don't buy it).
+  - intake_form.html: the post-submit "What happens next" success
+    screen (new-domain branch) still said "We purchase and register
+    your domain directly." Rewritten to correctly tell them to
+    register it themselves before setup can begin.
+  - partners.html: a trust-building bullet said "We purchase or
+    configure their domain." Now just "We configure."
 
-This new field is a strong HINT, not a guarantee -- a site can be
-built on Squarespace while DNS still lives at the original registrar
-(both models are common). Before sending ANY delegation instructions,
-the tech should still confirm live with a nameserver lookup (e.g.
-MXToolbox's NS lookup) rather than trusting the client's self-report
-as ground truth.
-
-A NOTE ON ACCESS SCOPE (worth knowing, not yet reflected in copy)
-------------------------------------------------------------------
-Registrars like Namecheap/GoDaddy offer genuinely narrow, DNS-only
-delegation -- which is why the "no password, ever" pitch works
-cleanly for them. Platform hosts like Netlify don't have an
-equivalent narrow "DNS-only" role -- their sharing model is
-project/team-based, so getting into DNS there usually means broader
-access to the live site (deploys, settings, etc.), not a scoped-down
-DNS mailbox. Still categorically true the client's password is never
-shared -- just a different, broader shape of access than the
-registrar case. Philos's call: mitigate this operationally (vet techs
-who'll need host-platform access more carefully than registrar-only
-techs) rather than promise something narrower than what's actually
-granted.
-
-STILL OPEN (from last pass, unchanged)
-------------------------------------------
-Whether EmailDone4U continues to purchase/register domains on a
-client's behalf (the "No, I need to purchase one" path) is still an
-open decision -- see the previous README section on this, carried
-forward, not yet resolved.
+A full text sweep for "purchase," "register...for you," and "billed to
+you by the registrar" across all three files came back clean after
+these fixes -- nothing else found.
 
 DEPLOYING TO NETLIFY
 --------------------
@@ -66,7 +38,9 @@ DEPLOYING TO NETLIFY
 FORM CAPTURE
 ------------
 One active form: "email-setup-intake" on intake_form.html.
-Submissions appear at: app.netlify.com -> Your site -> Forms
+Wired to auto-create orders in the technician portal via a Supabase
+Edge Function -- see the portal's SETUP_REQUIRED.txt for the one-time
+Netlify webhook connection, if not done yet.
 
 VERSIONING
 ----------

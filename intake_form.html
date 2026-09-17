@@ -681,7 +681,7 @@
         </div>
         <div class="next-steps" id="stepsNewDomain" style="display:none;">
           <h4>What happens next</h4>
-          <div class="next-step-item"><div class="step-dot">1</div><div>We purchase and register your domain directly — nothing needed from you on this step.</div></div>
+          <div class="next-step-item"><div class="step-dot">1</div><div>Register the domain you told us about above, if you haven't already — about 5 minutes, typically $12–18/year at any registrar. We can't begin until you own it.</div></div>
           <div class="next-step-item"><div class="step-dot">2</div><div>We build your new Google Workspace account and configure DNS, SPF, DKIM, DMARC.</div></div>
           <div class="next-step-item"><div class="step-dot">3</div><div>When your Workspace is ready, you'll enter your own payment card directly on Google's page — never shared with us.</div></div>
           <div class="next-step-item"><div class="step-dot">4</div><div>You receive a handoff email with your new login, phone setup instructions, and a test confirmation.</div></div>
@@ -746,7 +746,16 @@
       reg.style.display = 'none';
       hosting.style.display = 'none';
       info.className = 'info-box show';
-      info.innerHTML = '<strong>No problem!</strong> We\'ll purchase and register the domain for you as part of the setup. Domain registration costs typically $12–18/year and will be billed to your card directly.';
+      info.innerHTML = `<strong>No problem — that's quick to fix yourself.</strong> Registering a domain takes about 5 minutes and typically costs $12–18/year. We recommend <a href="https://www.namecheap.com" target="_blank" rel="noopener" style="color:#3b82f6;">Namecheap</a> for its simple pricing and easy setup, though any registrar works fine.
+        <details style="margin-top:10px;">
+          <summary style="cursor:pointer;font-weight:600;color:#3b82f6;">Learn more about getting a domain</summary>
+          <div style="margin-top:8px;font-weight:400;">
+            1. Go to a registrar (Namecheap, GoDaddy, etc.) and search your desired name.<br>
+            2. If it's taken, try a short variation or a different ending (.co, .net, .biz).<br>
+            3. Purchase it — no need for hosting, website builder, or other add-ons, just the domain itself.<br>
+            4. Enter whatever you land on below. Once you actually own it, submit this form (or update your submission) and we'll take it from there — DNS, email, all of it.
+          </div>
+        </details>`;
       label.innerHTML = 'What domain would you like to register? <span class="req">*</span> <span class="hint">e.g. acmeplumbing.com</span>';
       hint.innerHTML = 'Picking a name is up to you — we don\'t offer naming help. Quickly check availability yourself at <a href="https://www.namecheap.com" target="_blank" rel="noopener" style="color:#3b82f6;">namecheap.com</a>. Most .com names are already taken; if yours is, try a short variation (getacme.com, acmehq.com) or another ending (.co, .net, .biz), then enter whatever you land on below.';
     } else if (val === 'unsure') {
@@ -789,6 +798,6 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.13</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.15</div>
 </body>
 </html>
