@@ -1,31 +1,20 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.15
+Built: September 2026 — Package v1.16
 Domain: emaildone4u.com
 
 WHAT CHANGED THIS PASS (all three HTML files)
 --------------------------------------------------
-Last pass (v1.14) only fixed intake_form.html's domain-purchase
-promise. A broader sweep this time found FOUR more places carrying
-the same now-outdated "we'll buy it for you" claim -- all fixed:
+Added Google Analytics 4 tracking (the "Google tag" / gtag.js) to all
+three pages -- index.html, intake_form.html, partners.html -- right
+after <head>, exactly as Google's own installation instructions
+specify. Measurement ID: G-7N3S64QL16 (property: Email Done 4 U,
+account: Grey Matter Fusion).
 
-  - index.html: FAQ answer to "Do I need to already own a domain?"
-    rewritten to explain self-registration + recommend Namecheap.
-  - index.html: all THREE pricing cards (Standard/Priority/Rush) listed
-    "Domain purchase & configuration" as an included feature -- this
-    was the most prominent leftover, a structural pricing-page claim,
-    not just FAQ text. Now reads "Domain configuration" (still
-    accurate -- you still configure/point DNS, just don't buy it).
-  - intake_form.html: the post-submit "What happens next" success
-    screen (new-domain branch) still said "We purchase and register
-    your domain directly." Rewritten to correctly tell them to
-    register it themselves before setup can begin.
-  - partners.html: a trust-building bullet said "We purchase or
-    configure their domain." Now just "We configure."
-
-A full text sweep for "purchase," "register...for you," and "billed to
-you by the registrar" across all three files came back clean after
-these fixes -- nothing else found.
+Once deployed, traffic should start appearing in GA4 within a few
+minutes to hours. Use GA4's own "Test installation" button (visible
+on the same admin screen the tag came from) to confirm it's firing
+correctly on the live site after deploy.
 
 DEPLOYING TO NETLIFY
 --------------------
@@ -39,8 +28,7 @@ FORM CAPTURE
 ------------
 One active form: "email-setup-intake" on intake_form.html.
 Wired to auto-create orders in the technician portal via a Supabase
-Edge Function -- see the portal's SETUP_REQUIRED.txt for the one-time
-Netlify webhook connection, if not done yet.
+Edge Function -- see the portal's SETUP_REQUIRED.txt if not connected yet.
 
 VERSIONING
 ----------
