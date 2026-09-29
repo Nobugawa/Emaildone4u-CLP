@@ -1,9 +1,57 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.18
+Built: September 2026 — Package v1.22
 Domain: emaildone4u.com
 
-WHAT CHANGED THIS PASS (v1.18)
+WHAT CHANGED THIS PASS (v1.22)
+--------------------------------------------------
+intake_form.html now sends a GA4 "generate_lead" event when the form is
+submitted (with tier and domain_status parameters), so Google Ads has a
+real conversion to optimize toward. Nothing else changed. Setup:
+GA4 Admin > Events > mark generate_lead as a key event, then Google Ads >
+Goals > Conversions > Import from GA4.
+
+WHAT CHANGED IN v1.21 (also included)
+--------------------------------------------------
+partners.html now has <meta name="robots" content="noindex, nofollow"> so
+Google Search will not list the referral-partner page. It stays reachable
+by direct link (noindex is NOT password protection). Nothing else changed.
+No other page links to partners.html; keep it that way. Do not add
+partners.html to a sitemap and do not block it in robots.txt (Google must
+be able to read the noindex tag).
+
+WHAT CHANGED IN v1.20 (also included)
+--------------------------------------------------
+Version-label correction only. The #tier anchor on intake_form.html
+(section 4, id="tier") was added AFTER v1.19 was first delivered, so it
+is relabeled v1.20 to keep one change = one version. No other changes.
+Use /intake_form?tier=rush#tier as the Google Ads "Same-Day Setup"
+sitelink URL. Anything listed under v1.19 below is also included.
+
+WHAT CHANGED IN v1.19 (also included)
+--------------------------------------------------
+1. New "Who We Are" section on index.html (id="about") with Philos's photo
+   (images/philos-kim.jpg), founder title, phone and email. Deliberately
+   avoids "solo" / "one-person" wording so it still reads correctly if
+   techs are added later. The "about ten years running businesses" line
+   comes from what Philos told us -- edit or remove as desired.
+2. New privacy.html and terms.html (served at /privacy and /terms via
+   Netlify pretty URLs). Linked from all three pages' footers and from
+   the intake form's submit area. DRAFTS -- have an attorney review.
+   Items to confirm: payment due-date wording, "we may remove DNS
+   records if unpaid" clause, cancellation wording, NJ governing law.
+3. Footer on all pages: "EmailDone4U is a service of Grey Matter Fusion
+   Inc. - Riverdale, NJ - 973-888-3208". Street address and EIN are
+   intentionally NOT shown.
+4. (Added late; shipped as v1.20) Intake form section 4 has id="tier". A link to
+   /intake_form?tier=rush#tier lands directly on the tier tiles with Rush
+   pre-selected (use this as the Google Ads "Same-Day Setup" sitelink URL).
+   The pricing-card buttons still go to the top of the form on purpose.
+5. Stripe mention (text only) in the pay-after fine print. If adding
+   Stripe's badge image, use only the official asset from Stripe's brand
+   assets page and follow its usage guidelines.
+
+WHAT CHANGED LAST PASS (v1.18)
 --------------------------------------------------
 1. De-geeked index.html (inline-expand approach): DNS/SPF/DKIM/DMARC removed
    from default copy (hero, security steps, how-it-works, pricing bullets,

@@ -590,6 +590,20 @@ footer p { color: var(--slate2); font-size: 12px; }
 .payafter-step p { font-size: 13px; color: var(--slate); line-height: 1.55; }
 .payafter-fine { max-width: 620px; margin: 24px auto 0; font-size: 13px; color: var(--slate); line-height: 1.6; }
 @media(max-width:900px){ .payafter-steps { grid-template-columns: 1fr; max-width: 420px; } }
+
+/* v1.19: about + legal footer */
+.about-section { background: var(--white); }
+.about-inner { max-width: 820px; margin: 0 auto; display: flex; gap: 40px; align-items: center; }
+.about-photo { width: 190px; height: 190px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 4px solid var(--ice); box-shadow: 0 12px 32px rgba(13,27,46,0.15); }
+.about-text h2 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 6px; }
+.about-role { font-size: 14px; font-weight: 600; color: var(--blue); margin-bottom: 14px; }
+.about-text p { font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 12px; }
+.about-contact { font-size: 14px; color: var(--navy); font-weight: 600; }
+.about-contact a { color: var(--blue); text-decoration: none; }
+.footer-legal { width: 100%; text-align: center; }
+.footer-legal p { margin-top: 6px; }
+.footer-legal a { color: var(--slate); text-decoration: none; }
+@media(max-width:700px){ .about-inner { flex-direction: column; text-align: center; gap: 24px; } }
 </style>
 </head>
 <body>
@@ -840,7 +854,23 @@ footer p { color: var(--slate2); font-size: 12px; }
       <div class="payafter-step reveal"><div class="n">2</div><h4>You try it out</h4><p>Send and receive a test email and check it works the way you expect.</p></div>
       <div class="payafter-step reveal"><div class="n">3</div><h4>Then we invoice</h4><p>A simple invoice for the flat setup fee you chose. Nothing hidden.</p></div>
     </div>
-    <p class="payafter-fine reveal">Google's own Workspace subscription (~$7/month) is separate. Google bills it to you directly, and you enter your card on Google's page, never with us.</p>
+    <p class="payafter-fine reveal">Google's own Workspace subscription (~$7/month) is separate. Google bills it to you directly, and you enter your card on Google's page, never with us. Our own invoices are sent and paid securely through Stripe.</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-inner">
+    <div class="about-inner reveal">
+      <img class="about-photo" src="images/philos-kim.jpg" alt="Philos Kim, Founder of EmailDone4U" width="190" height="190" loading="lazy">
+      <div class="about-text">
+        <span class="section-tag">Who We Are</span>
+        <h2>Philos Kim</h2>
+        <div class="about-role">Founder, EmailDone4U</div>
+        <p>EmailDone4U is a service of Grey Matter Fusion Inc., a New Jersey company. Philos has run businesses for about ten years, and he built this service around two rules: you should never have to hand over a password, and you should never pay before it works.</p>
+        <p class="about-contact">Questions? Call <a href="tel:+19738883208">973-888-3208</a> or email <a href="mailto:help@emaildone4u.com">help@emaildone4u.com</a></p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -902,10 +932,14 @@ footer p { color: var(--slate2); font-size: 12px; }
     <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
+    <a href="#about">About</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
     </div>
   <p><a href="mailto:help@emaildone4u.com" style="color:var(--slate);text-decoration:none;">help@emaildone4u.com</a></p>
-  <p style="margin-top:6px;">Not affiliated with Google LLC.</p>
-  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.18</span>
+  <p style="margin-top:6px;">EmailDone4U is a service of Grey Matter Fusion Inc. · Riverdale, NJ · <a href="tel:+19738883208" style="color:inherit;">973-888-3208</a></p>
+  <p style="margin-top:6px;">© 2026 Grey Matter Fusion Inc. Not affiliated with Google LLC.</p>
+  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.22</span>
 </footer>
 
 <script>// Nav

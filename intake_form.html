@@ -621,8 +621,8 @@
 
         <div class="divider"></div>
 
-        <!-- Section 4: Tier -->
-        <div class="section">
+        <!-- Section 4: Tier (anchor: /intake_form?tier=rush#tier lands here) -->
+        <div class="section" id="tier" style="scroll-margin-top:24px;">
           <div class="section-label">
             <div class="section-num">4</div>
             <h3>How Quickly Do You Need This?</h3>
@@ -682,6 +682,7 @@
 
         <button type="submit" class="submit-btn">Submit & Get Started →</button>
         <p class="submit-note">We'll follow up within one business day — often much sooner.</p>
+        <p class="submit-note" style="margin-top:8px;">By submitting, you agree to our <a href="/terms" style="color:#3b82f6;">Terms</a> and <a href="/privacy" style="color:#3b82f6;">Privacy Policy</a>.</p>
 
       </form>
 
@@ -719,6 +720,7 @@
     <img src="images/logo.png" alt="EmailDone4U" style="height:28px;width:auto;display:block;margin:0 auto 10px;">
     <p><a href="mailto:help@emaildone4u.com" style="color:rgba(255,255,255,0.9);text-decoration:none;">help@emaildone4u.com</a></p>
     <p style="margin-top:6px;">Google Workspace subscription (~$7/mo) billed directly to you by Google — not included in setup fee.</p>
+    <p style="margin-top:10px;font-size:12px;font-weight:400;">EmailDone4U is a service of Grey Matter Fusion Inc. · Riverdale, NJ · <a href="tel:+19738883208" style="color:rgba(255,255,255,0.75);">973-888-3208</a><br><a href="/privacy" style="color:rgba(255,255,255,0.75);">Privacy</a> · <a href="/terms" style="color:rgba(255,255,255,0.75);">Terms</a></p>
   </div>
 
 </div>
@@ -814,6 +816,18 @@
       body: new URLSearchParams(formData).toString(),
     }).catch(err => console.log('Form note:', err));
 
+    // GA4 conversion event: fires once when the intake form is submitted.
+    // (Import "generate_lead" into Google Ads as the campaign's conversion goal.)
+    try {
+      const tierEl = document.querySelector('input[name="tier"]:checked');
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+          tier: tierEl ? tierEl.value : 'none',
+          domain_status: ownsdomain || 'none'
+        });
+      }
+    } catch (err) { console.log('GA event note:', err); }
+
     document.getElementById('confirmEmail').textContent = email;
     document.getElementById('intakeForm').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
@@ -824,6 +838,6 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.18</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.22</div>
 </body>
 </html>
