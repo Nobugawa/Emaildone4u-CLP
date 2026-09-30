@@ -572,14 +572,18 @@ footer p { color: var(--slate2); font-size: 12px; }
 }
 
 /* v1.18: inline technical-details expander + pay-after section */
-.tech-details { margin-top: 28px; border: 1px solid rgba(255,255,255,0.25); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.06); }
-.tech-details summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--white); list-style: none; }
+.tech-details { margin-top: 28px; border: 2px solid var(--white); border-radius: 12px; padding: 14px 18px; background: var(--white); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+.tech-details summary { cursor: pointer; font-size: 15px; font-weight: 700; color: var(--blue); list-style: none; }
 .tech-details summary::-webkit-details-marker { display: none; }
 .tech-details summary::after { content: ' \25BE'; }
 .tech-details[open] summary::after { content: ' \25B4'; }
-.tech-details-body { margin-top: 12px; font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.8); }
+.tech-details-body { margin-top: 12px; font-size: 13.5px; line-height: 1.65; color: #334155; }
 .tech-details-body p { margin-bottom: 10px; }
-.tech-details-body strong { color: var(--white); }
+.tech-details-body strong { color: var(--navy); }
+/* v1.24: same expander for light sections (step 3 "We configure everything") */
+.tech-details-light { scroll-margin-top: 110px; max-width: 760px; margin: 36px auto 0; background: #eef2ff; border: 2px solid #c7d2fe; box-shadow: none; }
+.step-more { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--blue); text-decoration: none; border-bottom: 1px dashed var(--blue); }
+.step-more:hover { color: #1e40af; }
 .payafter-section { background: var(--ice2); text-align: center; }
 .payafter-section h2 { max-width: 640px; margin-left: auto; margin-right: auto; }
 .payafter-section .section-sub { max-width: 620px; margin-left: auto; margin-right: auto; }
@@ -778,6 +782,7 @@ footer p { color: var(--slate2); font-size: 12px; }
         <div class="step-icon">⚙️<span class="step-num">3</span></div>
         <h4>We configure everything</h4>
         <p>We set up your Google Workspace account and make sure your email sends and arrives properly — all tested while you focus on your business.</p>
+        <a href="#setup-details" class="step-more">What exactly do we set up? ↓</a>
       </div>
       <div class="step-item reveal">
         <div class="step-icon">🎉<span class="step-num">4</span></div>
@@ -785,6 +790,16 @@ footer p { color: var(--slate2); font-size: 12px; }
         <p>You get a full handoff document — login details, phone setup guide, and 30 days of included support. Then we send our invoice: you pay only after it's working.</p>
       </div>
     </div>
+    <details class="tech-details tech-details-light reveal" id="setup-details">
+      <summary>What exactly do we set up? (the technical details)</summary>
+      <div class="tech-details-body">
+        <p><strong>Your Google Workspace account.</strong> We create it and set up your business email address. When it's time to activate Google's subscription, you enter your own card directly on Google's page — never shared with us.</p>
+        <p><strong>Mail routing (MX records).</strong> Small settings in your domain's DNS that tell the internet to deliver your email to Google, so messages actually reach your inbox.</p>
+        <p><strong>Spam and impersonation protection (SPF, DKIM, DMARC).</strong> SPF lists which servers may send email as you. DKIM adds a digital signature to your outgoing mail. DMARC tells receiving servers what to do with mail that fails those checks. Together they keep your invoices and replies out of spam and make it harder for someone to impersonate your domain.</p>
+        <p><strong>A full delivery test.</strong> Before we call it done, we test sending and receiving to confirm your email arrives properly.</p>
+        <p><strong>Your handoff.</strong> You get a document with your login details, a phone setup guide, and 30 days of included support. Then we send our invoice: you pay only after it's working.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -939,7 +954,7 @@ footer p { color: var(--slate2); font-size: 12px; }
   <p><a href="mailto:help@emaildone4u.com" style="color:var(--slate);text-decoration:none;">help@emaildone4u.com</a></p>
   <p style="margin-top:6px;">EmailDone4U is a service of Grey Matter Fusion Inc. · Riverdale, NJ · <a href="tel:+19738883208" style="color:inherit;">973-888-3208</a></p>
   <p style="margin-top:6px;">© 2026 Grey Matter Fusion Inc. Not affiliated with Google LLC.</p>
-  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.22</span>
+  <span style="font-size:11px;color:var(--slate2);text-align:right;margin-top:8px;display:block;">V1.24</span>
 </footer>
 
 <script>// Nav
@@ -965,6 +980,10 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// v1.24: step 3 link opens the details expander
+const setupLink = document.querySelector('.step-more');
+if (setupLink) setupLink.addEventListener('click', () => { const d = document.getElementById('setup-details'); if (d) d.open = true; });
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {

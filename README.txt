@@ -1,9 +1,29 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.22
+Built: September 2026 — Package v1.24
 Domain: emaildone4u.com
 
-WHAT CHANGED THIS PASS (v1.22)
+WHAT CHANGED THIS PASS (v1.24)
+--------------------------------------------------
+index.html only (plus version labels V1.24 on all pages):
+1. The "Curious about the technical details?" expander in the security
+   section (blue background) is now a light/white card with dark text, so it
+   stands out instead of blending into the blue.
+2. Step 3 ("We configure everything") now has a "What exactly do we set up?"
+   link that opens a new expander below the four steps, in plain language
+   first with the technical terms (MX, SPF, DKIM, DMARC) explained inline.
+Also includes v1.23 (sitemap.xml and robots.txt). Submit sitemap.xml in
+Google Search Console > Sitemaps.
+
+WHAT CHANGED IN v1.23 (also included)
+--------------------------------------------------
+Added sitemap.xml (home, intake form, privacy, terms) and robots.txt
+(allows crawling and points to the sitemap). partners.html is deliberately
+NOT in the sitemap and NOT blocked in robots.txt, so Google can read its
+noindex tag. Version labels bumped to V1.23 on all pages. Nothing else
+changed. In Google Search Console > Sitemaps, submit: sitemap.xml
+
+WHAT CHANGED IN v1.22 (also included)
 --------------------------------------------------
 intake_form.html now sends a GA4 "generate_lead" event when the form is
 submitted (with tier and domain_status parameters), so Google Ads has a
