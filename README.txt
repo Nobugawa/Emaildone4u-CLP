@@ -1,9 +1,15 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.24
+Built: September 2026 — Package v1.25
 Domain: emaildone4u.com
 
-WHAT CHANGED THIS PASS (v1.24)
+WHAT CHANGED THIS PASS (v1.25)
+Turnaround promise: pricing section and intake form say when the clock starts (when we
+have access to domain settings; Rush needs access by 2 PM ET) and the late remedy (pay the
+next tier down; Standard $50 off). terms.html has a new section 5 "Our turnaround promise"
+(later sections renumbered). Version labels V1.25 on all pages.
+
+PREVIOUS PASS (v1.24)
 --------------------------------------------------
 index.html only (plus version labels V1.24 on all pages):
 1. The "Curious about the technical details?" expander in the security
