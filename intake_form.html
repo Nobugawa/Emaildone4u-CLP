@@ -273,6 +273,33 @@
 
   .email-preview.empty { color: #94a3b8; font-weight: 400; }
 
+
+  /* v1.28: email anatomy + address row */
+  .pn { color:#1d4ed8; } .pa { color:#0f1f3d; } .pd { color:#0f766e; } .pt { color:#b45309; }
+  .anatomy { background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:12px; padding:16px 16px 12px; margin:0 0 22px; }
+  .anatomy-title { font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--gray); margin-bottom:12px; }
+  .anatomy-ex { text-align:center; white-space:nowrap; overflow:hidden; font-size:clamp(15px,5.2vw,24px); font-weight:700; margin-bottom:14px; letter-spacing:-.01em; }
+  .anatomy-ex span { display:inline-block; padding-bottom:3px; border-bottom:3px solid currentColor; }
+  .anatomy-ex .pa { border-bottom-color:transparent; padding:0 2px; }
+  .anatomy-legend { list-style:none; margin:0; padding:0; }
+  .anatomy-legend li { display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.5; color:#334155; margin-bottom:8px; }
+  .anatomy-legend li.pn { color:#1d4ed8; } .anatomy-legend li.pa { color:#0f1f3d; } .anatomy-legend li.pd { color:#0f766e; } .anatomy-legend li.pt { color:#b45309; }
+  .anatomy-legend .sw { flex:0 0 12px; height:12px; border-radius:3px; background:currentColor; margin-top:4px; }
+  .anatomy-legend b { color:var(--navy); }
+  .addr-row { display:flex; align-items:center; gap:10px; }
+  .addr-row input { flex:1 1 0; min-width:0; }
+  .addr-at { font-size:20px; font-weight:700; color:var(--navy); flex:0 0 auto; }
+  .addr-domain { flex:1 1 0; min-width:0; text-align:left; cursor:pointer; padding:11px 14px; border:1.5px dashed #94a3b8; border-radius:10px; background:#f1f5f9; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; line-height:1.3; white-space:nowrap; overflow:hidden; }
+  .addr-domain.empty { color:#94a3b8; font-weight:400; }
+  .addr-domain-note { font-size:12px; color:var(--gray); margin-top:6px; }
+  .email-preview.fit { display:block; white-space:nowrap; overflow:hidden; }
+  .email-preview.mini { min-height:0; padding:8px 14px; margin-top:6px; font-size:14px; }
+  .email-preview.mini .lbl { color:var(--gray); font-weight:400; margin-right:6px; }
+  .preview-cap { font-size:12px; color:var(--gray); margin:10px 0 0; }
+  .ph { color:#94a3b8; font-weight:400; }
+  .field-err { font-size:12.5px; color:#b91c1c; margin-top:6px; line-height:1.5; }
+  .field-note { font-size:12.5px; color:#0f766e; margin-top:6px; line-height:1.5; }
+
   /* Tier selection */
   .tier-grid {
     display: grid;
@@ -457,6 +484,9 @@
     .tier-grid { grid-template-columns: 1fr; }
     .field-row { grid-template-columns: 1fr; }
     .lock-badge { display: none; }
+    .addr-row { flex-direction:column; align-items:stretch; gap:4px; }
+    .addr-at { text-align:center; line-height:1; }
+    .addr-domain { flex:0 0 auto; }
   }
 </style>
 </head>
@@ -548,8 +578,10 @@
 
           <div class="field" id="domainField" style="display:none;">
             <label id="domainFieldLabel">Your domain <span class="req">*</span></label>
-            <input type="text" id="domain" name="desired_domain" placeholder="yourbusiness.com" required oninput="updatePreview()">
+            <input type="text" id="domain" name="desired_domain" placeholder="yourbusiness.com" required inputmode="url" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" oninput="domainInput()" onblur="domainBlur()">
             <p id="domainFieldHint" style="font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.5;"></p>
+            <p id="domainErr" class="field-err" role="alert" style="display:none;"></p>
+            <p id="domainNote" class="field-note" style="display:none;"></p>
           </div>
 
           <div id="registrarSection" style="display:none;">
@@ -564,6 +596,22 @@
                 <div class="registrar-option"><input type="radio" name="registrar" id="r6" value="Other"><label class="registrar-pill" for="r6">Other</label></div>
                 <div class="registrar-option"><input type="radio" name="registrar" id="r7" value="Not sure"><label class="registrar-pill" for="r7">Not sure</label></div>
               </div>
+            </div>
+          </div>
+
+
+          <div id="settingsLoginSection" style="display:none;">
+            <div class="field">
+              <label>Where do you log in to change your domain’s settings? <span class="hint">optional — skip this if it’s the same place you bought it</span></label>
+              <div class="registrar-grid">
+                <div class="registrar-option"><input type="radio" name="settings_login" id="s1" value="Website builder or host"><label class="registrar-pill" for="s1">My website builder or host</label></div>
+                <div class="registrar-option"><input type="radio" name="settings_login" id="s2" value="Cloudflare"><label class="registrar-pill" for="s2">Cloudflare</label></div>
+                <div class="registrar-option"><input type="radio" name="settings_login" id="s3" value="GoDaddy"><label class="registrar-pill" for="s3">GoDaddy</label></div>
+                <div class="registrar-option"><input type="radio" name="settings_login" id="s4" value="Namecheap"><label class="registrar-pill" for="s4">Namecheap</label></div>
+                <div class="registrar-option"><input type="radio" name="settings_login" id="s5" value="Other"><label class="registrar-pill" for="s5">Other</label></div>
+                <div class="registrar-option"><input type="radio" name="settings_login" id="s6" value="Not sure"><label class="registrar-pill" for="s6">Not sure</label></div>
+              </div>
+              <p style="font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.5;">Sometimes a domain is bought in one place but managed in another. Don’t worry if you’re not sure — we check this for you.</p>
             </div>
           </div>
 
@@ -595,26 +643,49 @@
             <h3>Your New Email Address</h3>
           </div>
 
+          <div class="anatomy" id="addrAnatomy">
+            <div class="anatomy-title">How an email address is built</div>
+            <div class="anatomy-ex" aria-label="Example: jane at joesplumbing dot com"><span class="pn">jane</span><span class="pa">@</span><span class="pd">joesplumbing</span><span class="pt">.com</span></div>
+            <ul class="anatomy-legend">
+              <li class="pn"><i class="sw"></i><div style="color:#334155;"><b>Your name</b> — the part before the @. You choose it (jane, info, hello).</div></li>
+              <li class="pa"><i class="sw"></i><div style="color:#334155;"><b>@</b> — means “at”. Always in the middle.</div></li>
+              <li class="pd"><i class="sw"></i><div style="color:#334155;"><b>Domain name</b> — your business’s web name (joesplumbing). This is the web address you gave us above.</div></li>
+              <li class="pt"><i class="sw"></i><div style="color:#334155;"><b>Top-level domain</b> — the ending (.com, .net, .co).</div></li>
+            </ul>
+          </div>
+
           <div class="field">
-            <label>What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, info, hello</span></label>
-            <input type="text" id="username" name="email_username" placeholder="jane" required oninput="updatePreview()">
+            <label for="username">What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, info, hello</span></label>
+            <div class="addr-row">
+              <input type="text" id="username" name="email_username" placeholder="jane" required autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" oninput="userInput()" onblur="userBlur()">
+              <span class="addr-at" aria-hidden="true">@</span>
+              <button type="button" class="addr-domain empty" id="addrDomain" onclick="goDomain()" title="Tap to change your domain">your domain (from step 2)</button>
+            </div>
+            <p id="usernameErr" class="field-err" role="alert" style="display:none;"></p>
           </div>
 
           <div class="field">
             <label>Your new email will look like:</label>
-            <div class="email-preview empty" id="emailPreview">Fill in the fields above to see your new address</div>
+            <div class="email-preview empty fit" id="emailPreview">Fill in the fields above to see your new address</div>
           </div>
 
           <div class="field">
-            <label>Additional addresses that forward to this same inbox? <span class="hint">optional — e.g. info@, billing@ — not separate logins</span></label>
-            <input type="text" id="extraEmails" name="extra_emails" placeholder="info, billing, support">
+            <label for="extraEmails">Additional addresses that forward to this same inbox? <span class="hint">optional — e.g. info@, billing@ — not separate logins</span></label>
+            <input type="text" id="extraEmails" name="extra_emails" placeholder="info, billing, support" autocapitalize="off" autocomplete="off" oninput="updatePreview()">
+            <div id="extraPreview"></div>
           </div>
 
           <div class="field">
-            <label>Does anyone else on your team need their own separate email login? <span class="hint">extra cost — we'll go over pricing when we follow up</span></label>
+            <label>Does anyone else on your team need their own separate email login? <span class="hint">extra cost — we’ll go over pricing when we follow up</span></label>
             <div class="registrar-grid">
-              <div class="registrar-option"><input type="radio" name="needs_separate_mailbox" id="sm-no" value="no" checked><label class="registrar-pill" for="sm-no">No</label></div>
-              <div class="registrar-option"><input type="radio" name="needs_separate_mailbox" id="sm-yes" value="yes"><label class="registrar-pill" for="sm-yes">Yes</label></div>
+              <div class="registrar-option"><input type="radio" name="needs_separate_mailbox" id="sm-no" value="no" checked onchange="updatePreview()"><label class="registrar-pill" for="sm-no">No</label></div>
+              <div class="registrar-option"><input type="radio" name="needs_separate_mailbox" id="sm-yes" value="yes" onchange="updatePreview()"><label class="registrar-pill" for="sm-yes">Yes</label></div>
+            </div>
+            <div id="sepBox" style="display:none;margin-top:14px;">
+              <label for="sepLogins" style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:7px;">Who needs their own login? <span class="hint" style="font-weight:400;color:var(--gray);font-size:12px;">first names are fine — e.g. sam, maria</span></label>
+              <input type="text" id="sepLogins" name="separate_logins" placeholder="sam, maria" autocapitalize="off" autocomplete="off" oninput="updatePreview()" style="width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--off);">
+              <div id="sepPreview"></div>
+              <p class="preview-cap">Each one gets its own private mailbox and password. Extra cost — we’ll confirm pricing before anything is added.</p>
             </div>
           </div>
         </div>
@@ -739,20 +810,141 @@
     }
   })();
 
-  function updatePreview() {
-    const user = document.getElementById('username').value.trim().toLowerCase().replace(/\s+/g, '');
-    const domain = document.getElementById('domain').value.trim().toLowerCase().replace(/\s+/g, '');
-    const preview = document.getElementById('emailPreview');
-    if (user && domain) {
-      preview.textContent = user + '@' + domain;
-      preview.classList.remove('empty');
-    } else if (user || domain) {
-      preview.textContent = (user || '___') + '@' + (domain || 'yourdomain.com');
-      preview.classList.remove('empty');
-    } else {
-      preview.textContent = 'Fill in the fields above to see your new address';
-      preview.classList.add('empty');
+  /* ---------- v1.28: address helpers ---------- */
+  var DOM_RE = /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/;
+  function cleanDomain(raw) {
+    var v = (raw || '').trim().toLowerCase();
+    if (v.indexOf('@') >= 0) v = v.slice(v.lastIndexOf('@') + 1);
+    v = v.replace(/^[a-z]+:\/\//, '').replace(/^www\./, '');
+    v = v.split(/[\/?#]/)[0].replace(/\.+$/, '');
+    return v;
+  }
+  function domainCheck(raw) {
+    var v = (raw || '').trim();
+    if (!v) return { ok: true, empty: true, val: '' };
+    var after = v.indexOf('@') >= 0 ? v.slice(v.lastIndexOf('@') + 1) : v;
+    if (/\s/.test(after)) return { ok: false, msg: 'No spaces, please. A web address looks like joesplumbing.com.' };
+    var c = cleanDomain(v);
+    if (!DOM_RE.test(c)) {
+      return { ok: false, msg: c.indexOf('.') < 0
+        ? 'Add the ending, like .com — for example joesplumbing.com.'
+        : 'That doesn\u2019t look like a web address yet. It should look like joesplumbing.com.' };
     }
+    return { ok: true, val: c, converted: c !== v.toLowerCase() };
+  }
+  function userCheck(raw) {
+    var v = (raw || '').trim().toLowerCase();
+    var at = v.indexOf('@'); if (at >= 0) v = v.slice(0, at);
+    if (!v) return { ok: false, msg: 'Please type the part before the @, like jane.' };
+    if (/\s/.test(v)) return { ok: false, msg: 'No spaces, please. Try jane or jane.smith.' };
+    if (!/^[a-z0-9._+-]{1,64}$/.test(v)) return { ok: false, msg: 'Use letters, numbers, dots or dashes only — like jane or jane.smith.' };
+    return { ok: true, val: v };
+  }
+  function showMsg(id, text) { var el = document.getElementById(id); el.textContent = text || ''; el.style.display = text ? 'block' : 'none'; }
+
+  function domainInput() {
+    var el = document.getElementById('domain'), r = domainCheck(el.value);
+    el.setCustomValidity(r.ok ? '' : r.msg);
+    showMsg('domainNote', '');
+    // definite mistakes are shown right away; the rest waits until the person leaves the box
+    showMsg('domainErr', (!r.ok && /\s/.test(el.value.trim())) ? r.msg : '');
+    updatePreview();
+  }
+  function domainBlur() {
+    var el = document.getElementById('domain'), r = domainCheck(el.value);
+    el.setCustomValidity(r.ok ? '' : r.msg);
+    showMsg('domainErr', r.ok ? '' : r.msg);
+    if (r.ok && !r.empty && el.value !== r.val) {
+      var raw = el.value.trim(), u = document.getElementById('username');
+      if (raw.indexOf('@') >= 0 && !u.value.trim()) {
+        var before = userCheck(raw.slice(0, raw.lastIndexOf('@')));
+        if (before.ok) { u.value = before.val; userInput(); }
+      }
+      el.value = r.val;
+      showMsg('domainNote', raw.indexOf('@') >= 0
+        ? 'We only need the web address, so we\u2019ll use ' + r.val + ' (the part after the @).'
+        : 'We\u2019ll use ' + r.val + '.');
+    }
+    updatePreview();
+  }
+  function userInput() {
+    var el = document.getElementById('username'), r = userCheck(el.value);
+    el.setCustomValidity(r.ok ? '' : r.msg);
+    showMsg('usernameErr', (!r.ok && /[\s@]/.test(el.value.trim()) && el.value.trim() !== '@') ? r.msg : '');
+    updatePreview();
+  }
+  function userBlur() {
+    var el = document.getElementById('username'), r = userCheck(el.value);
+    el.setCustomValidity(r.ok ? '' : r.msg);
+    showMsg('usernameErr', (r.ok || !el.value.trim()) ? '' : r.msg);
+    if (r.ok && el.value !== r.val) el.value = r.val;
+    if (!r.ok && el.value.trim().indexOf('@') === 0) el.value = '';
+    updatePreview();
+  }
+  function goDomain() {
+    var f = document.getElementById('domainField'), i = document.getElementById('domain');
+    if (f.style.display === 'none') { var s = document.getElementById('domainStatus'); s.scrollIntoView({ behavior: 'smooth', block: 'center' }); s.focus(); return; }
+    i.scrollIntoView({ behavior: 'smooth', block: 'center' }); i.focus();
+  }
+  function parseNames(s) {
+    return (s || '').toLowerCase().split(/[,;\s]+/)
+      .map(function (x) { return x.replace(/@.*$/, '').replace(/[^a-z0-9._+-]/g, ''); })
+      .filter(Boolean).filter(function (x, i, a) { return a.indexOf(x) === i; });
+  }
+  function splitDomain(d) { var i = d.indexOf('.'); return i < 0 ? { n: d, t: '' } : { n: d.slice(0, i), t: d.slice(i) }; }
+  function mk(cls, text) { var s = document.createElement('span'); if (cls) s.className = cls; s.textContent = text; return s; }
+  function paint(el, user, dom, ph) {
+    el.textContent = '';
+    var p = dom ? splitDomain(dom) : null;
+    el.appendChild(mk(user ? 'pn' : 'ph', user || '___'));
+    el.appendChild(mk('pa', '@'));
+    if (p) { el.appendChild(mk('pd', p.n)); if (p.t) el.appendChild(mk('pt', p.t)); }
+    else el.appendChild(mk('ph', ph || 'yourdomain.com'));
+  }
+  function renderList(boxId, names, dom, lead) {
+    var box = document.getElementById(boxId); box.textContent = '';
+    var show = names.slice(0, 6);
+    show.forEach(function (n) {
+      var row = document.createElement('div'); row.className = 'email-preview mini fit';
+      if (lead) row.appendChild(mk('lbl', lead));
+      var inner = document.createElement('span'); paint(inner, n, dom); row.appendChild(inner); box.appendChild(row);
+    });
+    if (names.length > show.length) { var m = document.createElement('div'); m.className = 'preview-cap'; m.textContent = '…and ' + (names.length - show.length) + ' more'; box.appendChild(m); }
+  }
+  var FIT_MIN = 12;
+  function fit(el) {
+    el.style.fontSize = ''; el.style.whiteSpace = 'nowrap'; el.style.overflowWrap = '';
+    if (!el.clientWidth) return;
+    var s = parseFloat(getComputedStyle(el).fontSize);
+    while (el.scrollWidth > el.clientWidth + 1 && s > FIT_MIN) { s -= 0.5; el.style.fontSize = s + 'px'; }
+    if (el.scrollWidth > el.clientWidth + 1) { el.style.whiteSpace = 'normal'; el.style.overflowWrap = 'anywhere'; }
+  }
+  function fitAll() { document.querySelectorAll('.fit, .addr-domain').forEach(fit); }
+  window.addEventListener('resize', fitAll);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+
+  function updatePreview() {
+    var user = document.getElementById('username').value.trim().toLowerCase().replace(/\s+/g, '').replace(/@.*$/, '');
+    var dom = cleanDomain(document.getElementById('domain').value).replace(/\s+/g, '');
+    var preview = document.getElementById('emailPreview');
+    if (user && dom) { paint(preview, user, dom); preview.classList.remove('empty'); }
+    else if (user || dom) { paint(preview, user, dom); preview.classList.remove('empty'); }
+    else { preview.textContent = 'Fill in the fields above to see your new address'; preview.classList.add('empty'); }
+    // the domain chip next to the name box
+    var chip = document.getElementById('addrDomain'); chip.textContent = '';
+    if (dom) { var p = splitDomain(dom); chip.appendChild(mk('pd', p.n)); if (p.t) chip.appendChild(mk('pt', p.t)); chip.classList.remove('empty'); }
+    else { chip.textContent = 'your domain (from step 2)'; chip.classList.add('empty'); }
+    // forwarding addresses + separate logins
+    var extras = parseNames(document.getElementById('extraEmails').value);
+    renderList('extraPreview', extras, dom, '');
+    var sepYes = document.getElementById('sm-yes').checked;
+    document.getElementById('sepBox').style.display = sepYes ? 'block' : 'none';
+    renderList('sepPreview', sepYes ? parseNames(document.getElementById('sepLogins').value) : [], dom, 'Own login:');
+    var cap = document.getElementById('extraPreview');
+    if (extras.length && !cap.querySelector('.preview-cap-top')) { var c = document.createElement('div'); c.className = 'preview-cap preview-cap-top'; c.textContent = 'These all arrive in your one main inbox:'; cap.insertBefore(c, cap.firstChild); }
+    var sp = document.getElementById('sepPreview');
+    if (sp.children.length && !sp.querySelector('.preview-cap-top')) { var c2 = document.createElement('div'); c2.className = 'preview-cap preview-cap-top'; c2.textContent = 'Each separate login will look like:'; sp.insertBefore(c2, sp.firstChild); }
+    fitAll();
   }
 
   function toggleRegistrar() {
@@ -768,19 +960,23 @@
     // reset
     reg.style.display = 'none';
     hosting.style.display = 'none';
+    document.getElementById('settingsLoginSection').style.display = 'none';
     field.style.display = 'none';
     info.className = 'info-box';
     info.innerHTML = '';
-    hint.innerHTML = '';
+    hint.innerHTML = 'Just the web address, like <strong>joesplumbing.com</strong> \u2014 not an email address. <a href="#addrAnatomy" style="color:#3b82f6;">See how an email address is built \u2193</a>';
+    showMsg('domainErr', ''); showMsg('domainNote', '');
     input.required = true;
 
     if (val === 'yes') {
       field.style.display = 'block';
       reg.style.display = 'block';
+      document.getElementById('settingsLoginSection').style.display = 'block';
       hosting.style.display = 'block';
       label.innerHTML = 'What\'s your domain? <span class="req">*</span> <span class="hint">e.g. joesplumbing.com</span>';
     } else if (val === 'unsure') {
       field.style.display = 'block';
+      reg.style.display = 'block';
       hosting.style.display = 'block';
       input.required = false;
       info.className = 'info-box show';
@@ -807,6 +1003,21 @@
 
   document.getElementById('intakeForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    domainBlur(); userBlur();
+    // Extra answers travel to the portal inside the notes field (the portal reads these fields today).
+    (function foldExtras() {
+      var add = [];
+      var sl = document.querySelector('input[name="settings_login"]:checked');
+      if (sl && document.getElementById('domainStatus').value === 'yes') add.push('Where client logs in to change domain settings (DNS): ' + sl.value);
+      if (document.getElementById('sm-yes').checked) {
+        var names = parseNames(document.getElementById('sepLogins').value);
+        if (names.length) add.push('Separate logins wanted: ' + names.join(', '));
+      }
+      if (add.length) {
+        var n = document.getElementById('notes');
+        n.value = (n.value.trim() ? n.value.trim() + '\n\n' : '') + '[From form] ' + add.join(' | ');
+      }
+    })();
     const email = document.getElementById('currentEmail').value;
     const ownsdomain = document.getElementById('domainStatus').value;
     const form = document.getElementById('intakeForm');
@@ -840,7 +1051,7 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.27</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.28</div>
 
 <script>
 /* Live estimate: assumes about 2 hours from now (1 hr for our reply + 1 hr for you to approve access), then applies the business-day rule in Eastern Time. */

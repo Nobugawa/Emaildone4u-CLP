@@ -1,9 +1,27 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.27
+Built: September 2026 — Package v1.28
 Domain: emaildone4u.com
 
-WHAT CHANGED THIS PASS (v1.27)
+WHAT CHANGED THIS PASS (v1.28)  -- intake form only (plus version labels V1.28)
+Made the form easier for non-technical people (two real orders came in with a wrong domain box):
+ 1. New "How an email address is built" diagram at the top of step 3 (your name @ domain name
+    top-level domain), colour-keyed. The "will look like" line uses the same colours.
+ 2. Step 3 shows [ name ] @ [ domain ] in one row (stacked on phones). The domain box in step 2
+    stays the place to type it; the chip next to the name box shows it and jumps back to it when tapped.
+ 3. The "will look like" lines shrink their text to fit one line (down to 12 px, then wrap).
+ 4. Forwarding addresses and separate logins each get their own "will look like" lines. Separate
+    logins now asks who needs one (first names).
+ 5. The domain box catches the mistakes we saw: an email address typed there is turned into just the
+    web address (with a note), spaces and missing endings get a plain-language message. The name box
+    strips a typed "@" and explains what to type.
+ 6. Registrar question ("Where did you buy it?") now also shows for "I'm not sure". New optional
+    question for people who own a domain: where they log in to change its settings (the registrar and
+    DNS host can be different companies).
+ NOTE: the portal reads fixed fields, so the new answers (settings login place, separate login names)
+ are added to the Notes field on submit as "[From form] ...". No portal or webhook change is needed.
+
+PREVIOUS PASS (v1.27)
 Intake form now shows a live estimated ready time once a tier is chosen. It takes the current
 Eastern time, adds 2 hours (about 1 hr for our reply + 1 hr for the client to approve access),
 and applies the v1.26 business-day rule. If that falls after hours / on a weekend or holiday, it
