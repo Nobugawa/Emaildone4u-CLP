@@ -634,7 +634,7 @@
               <label class="tier-card" for="t1">
                 <div class="tier-name">Standard</div>
                 <div class="tier-price">$150</div>
-                <div class="tier-time">Ready in 2 days</div>
+                <div class="tier-time">Ready in 2 business days</div>
               </label>
             </div>
             <div class="tier-option">
@@ -642,7 +642,7 @@
               <label class="tier-card" for="t2">
                 <div class="tier-name">Priority</div>
                 <div class="tier-price">$200</div>
-                <div class="tier-time">Ready in 24 hrs</div>
+                <div class="tier-time">Ready by next business day</div>
               </label>
             </div>
             <div class="tier-option">
@@ -650,11 +650,12 @@
               <label class="tier-card" for="t3">
                 <div class="tier-name">Rush</div>
                 <div class="tier-price">$300</div>
-                <div class="tier-time">Ready today</div>
+                <div class="tier-time">Ready same day</div>
               </label>
             </div>
           </div>
-          <p style="font-size:13px;color:var(--gray);margin-top:12px;line-height:1.55;">⏱ Your clock starts when we have access to your domain settings — we’ll ask for it right after you submit. For same-day Rush, approve access by 2 PM ET. If we miss your deadline, you pay the next tier down.</p>
+          <p style="font-size:13px;color:var(--gray);margin-top:12px;line-height:1.55;">⏱ Your clock starts when we have access to your domain settings — we’ll ask for it right after you submit. Deadlines: 5 PM ET on the 2nd business day (Standard) or the next business day (Priority); 10 PM ET the same day for Rush if you approve access by 2 PM ET. Approving on a weekend, a holiday, or after 5 PM ET starts the clock at 9 AM ET the next business day. If we miss your deadline, you pay the next tier down. <strong>Example:</strong> approve access Friday at 3 PM and Standard is due the following Tuesday at 5 PM (Priority: Monday at 5 PM) — weekends and holidays don’t count.</p>
+          <div id="dueEstimate" role="status" aria-live="polite" style="display:none;margin-top:14px;padding:12px 14px;background:#eff6ff;border-left:4px solid #1d4ed8;border-radius:8px;font-size:13.5px;line-height:1.6;color:#1e293b;"></div>
         </div>
 
         <div class="divider"></div>
@@ -839,6 +840,43 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.25</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.27</div>
+
+<script>
+/* Live estimate: assumes about 2 hours from now (1 hr for our reply + 1 hr for you to approve access), then applies the business-day rule in Eastern Time. */
+(function(){
+var x16F=new Intl.DateTimeFormat(`en-US`,{timeZone:`America/New_York`,hourCycle:`h23`,year:`numeric`,month:`numeric`,day:`numeric`,hour:`numeric`,minute:`numeric`});
+function x16P(d){let o={};for(let p of x16F.formatToParts(d))o[p.type]=p.value;return{y:+o.year,m:+o.month,d:+o.day,h:+o.hour%24,mi:+o.minute}}
+function x16Mk(y,m,d,h,mi){let w=Date.UTC(y,m-1,d,h,mi),g=w;for(let i=0;i<4;i++){let p=x16P(new Date(g)),diff=Date.UTC(p.y,p.m-1,p.d,p.h,p.mi)-w;if(!diff)break;g-=diff}return new Date(g)}
+function x16Nth(y,m,wd,n){let c=0;for(let d=1;d<=31;d++){let t=new Date(Date.UTC(y,m-1,d));if(t.getUTCMonth()!==m-1)break;if(t.getUTCDay()===wd&&++c===n)return d}}
+function x16LastWd(y,m,wd){let l=0;for(let d=1;d<=31;d++){let t=new Date(Date.UTC(y,m-1,d));if(t.getUTCMonth()!==m-1)break;if(t.getUTCDay()===wd)l=d}return l}
+function x16Obs(y,m,d){let t=new Date(Date.UTC(y,m-1,d)),w=t.getUTCDay();if(w===6)t=new Date(t.getTime()-864e5);else if(w===0)t=new Date(t.getTime()+864e5);return t.getUTCFullYear()+`-`+(t.getUTCMonth()+1)+`-`+t.getUTCDate()}
+var x16HC={};
+function x16Hols(y){if(x16HC[y])return x16HC[y];let s=new Set([[1,1],[6,19],[7,4],[11,11],[12,25]].map(a=>x16Obs(y,a[0],a[1])));for(let a of [[1,1,3],[2,1,3],[9,1,1],[10,1,2],[11,4,4]])s.add(y+`-`+a[0]+`-`+x16Nth(y,a[0],a[1],a[2]));s.add(y+`-5-`+x16LastWd(y,5,1));return x16HC[y]=s}
+function x16IsBiz(t){let w=t.getUTCDay();if(w===0||w===6)return!1;let y=t.getUTCFullYear(),k=y+`-`+(t.getUTCMonth()+1)+`-`+t.getUTCDate();return![-1,0,1].some(o=>x16Hols(y+o).has(k))}
+function x16NextBiz(t){do{t=new Date(t.getTime()+864e5)}while(!x16IsBiz(t));return t}
+function x16Start(tier,from){let f=new Date(from),p=x16P(f),t=new Date(Date.UTC(p.y,p.m-1,p.d)),mins=p.h*60+p.mi,cut=tier===`rush`?840:1020;if(x16IsBiz(t)&&mins<cut){return{day:t,at:mins<540?x16Mk(p.y,p.m,p.d,9,0):f}}let n=x16NextBiz(t);return{day:n,at:x16Mk(n.getUTCFullYear(),n.getUTCMonth()+1,n.getUTCDate(),9,0)}}
+function x16Calc(tier,from){let s=x16Start(tier,from),d=s.day,hr=17;if(tier===`rush`)hr=22;else{let n=tier===`priority`?1:2;while(n-->0)d=x16NextBiz(d)}return x16Mk(d.getUTCFullYear(),d.getUTCMonth()+1,d.getUTCDate(),hr,0)}
+var EXTRA_MS=2*36e5, boxEl=document.getElementById('dueEstimate');
+var TIERS={'Standard $150':'standard','Priority $200':'priority','Rush $300':'rush'};
+var FMT={timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric'}, TFMT={timeZone:'America/New_York',hour:'numeric',minute:'2-digit'};
+function dstr(d){return d.toLocaleDateString('en-US',FMT)}
+function tstr(d){return d.toLocaleTimeString('en-US',TFMT)}
+function render(){
+  var chk=document.querySelector('input[name="tier"]:checked');
+  if(!chk||!TIERS[chk.value]){boxEl.style.display='none';return}
+  var tier=TIERS[chk.value], now=new Date(), appr=new Date(now.getTime()+EXTRA_MS);
+  var st=x16Start(tier,appr), due=x16Calc(tier,appr), pn=x16P(now), todayUTC=Date.UTC(pn.y,pn.m-1,pn.d);
+  var h='<strong>Your estimated ready time: '+dstr(due)+' at '+tstr(due)+' ET.</strong> ';
+  h+='We assume about 2 hours from now — roughly 1 hour for us to reply and 1 hour for you to approve access to your domain settings. Your clock starts when you actually approve it, and we’ll aim to be faster.';
+  var shifted=Math.abs(st.at-appr)>6e4;
+  if(shifted){h+='<br><span style="color:#475569;">That moment falls outside business hours (or past the cutoff), so we count from <strong>'+dstr(st.at)+' at '+tstr(st.at)+' ET</strong>.</span>'}
+  if(tier==='rush'&&st.day.getTime()!==todayUTC){h+='<br><span style="color:#b45309;"><strong>Heads up:</strong> same-day Rush needs access approved by 2 PM ET, and at this hour that isn’t realistic, so your estimate moves to the next business day.</span>'}
+  boxEl.innerHTML=h; boxEl.style.display='block';
+}
+document.querySelectorAll('input[name="tier"]').forEach(function(r){r.addEventListener('change',render)});
+render(); setInterval(render,60000);
+})();
+</script>
 </body>
 </html>

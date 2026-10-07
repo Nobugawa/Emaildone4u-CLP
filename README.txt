@@ -1,9 +1,29 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.25
+Built: September 2026 — Package v1.27
 Domain: emaildone4u.com
 
-WHAT CHANGED THIS PASS (v1.25)
+WHAT CHANGED THIS PASS (v1.27)
+Intake form now shows a live estimated ready time once a tier is chosen. It takes the current
+Eastern time, adds 2 hours (about 1 hr for our reply + 1 hr for the client to approve access),
+and applies the v1.26 business-day rule. If that falls after hours / on a weekend or holiday, it
+says the clock is counted from 9 AM ET the next business day. For Rush, if 2 PM ET is unrealistic
+at that hour, it tells the client same-day isn't realistic and shows the next business day.
+Worked example added to the pricing note and the intake note. Terms section 5 now says dates
+shown before the clock starts are estimates. Version labels V1.27.
+
+PREVIOUS PASS (v1.26)
+Turnaround rules now use business days and fixed Eastern-time deadlines (matches portal v1.19):
+Standard = 5 PM ET on the 2nd business day; Priority = 5 PM ET the next business day;
+Rush = 10 PM ET the same day if access is approved by 2 PM ET. Access approved on a weekend,
+a U.S. federal holiday, or after 5 PM ET starts the clock at 9 AM ET the next business day.
+Changed: pricing cards (Priority now "Ready by next business day"), the "When does the clock
+start?" note, the intake form tier cards + note, and terms.html section 5 (effective date
+Oct 5, 2026). Late remedy unchanged (next tier down; Standard $50 off). Version labels V1.26.
+GOOGLE ADS: update the Price asset descriptions to match: Priority -> "Ready next business day";
+Rush -> "Same day if by 2 PM ET"; and remove any ad text that says "24 hours" for Priority.
+
+PREVIOUS PASS (v1.25)
 Turnaround promise: pricing section and intake form say when the clock starts (when we
 have access to domain settings; Rush needs access by 2 PM ET) and the late remedy (pay the
 next tier down; Standard $50 off). terms.html has a new section 5 "Our turnaround promise"
