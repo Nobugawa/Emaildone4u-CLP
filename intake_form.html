@@ -279,8 +279,13 @@
   .anatomy { background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:12px; padding:16px 16px 12px; margin:0 0 22px; }
   .anatomy-title { font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--gray); margin-bottom:12px; }
   .anatomy-ex { text-align:center; white-space:nowrap; overflow:hidden; font-size:clamp(15px,5.2vw,24px); font-weight:700; margin-bottom:14px; letter-spacing:-.01em; }
-  .anatomy-ex span { display:inline-block; padding-bottom:3px; border-bottom:3px solid currentColor; }
-  .anatomy-ex .pa { border-bottom-color:transparent; padding:0 2px; }
+  .anatomy-ex .seg { display:inline-block; padding-bottom:3px; border-bottom:3px solid currentColor; }
+  .anatomy-ex > .seg, .anatomy-ex > .pa { vertical-align:top; }
+  .anatomy-ex .pa { padding:0 2px; }
+  .anatomy-ex .wa { display:inline-block; vertical-align:top; text-align:center; }
+  .anatomy-ex .wa-lbl { display:block; white-space:normal; margin:6px 2px 0; padding:2px 6px 3px; font-size:11px; font-weight:600; line-height:1.3; color:#475569; border:2px solid #94a3b8; border-top:none; border-radius:0 0 8px 8px; letter-spacing:0; }
+  .anatomy-note { font-size:13px; line-height:1.55; color:#334155; background:#fff; border:1.5px solid #e2e8f0; border-radius:10px; padding:10px 12px; margin:12px 0 4px; }
+  .dn { color:#0f1f3d; font-weight:700; }
   .anatomy-legend { list-style:none; margin:0; padding:0; }
   .anatomy-legend li { display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.5; color:#334155; margin-bottom:8px; }
   .anatomy-legend li.pn { color:#1d4ed8; } .anatomy-legend li.pa { color:#0f1f3d; } .anatomy-legend li.pd { color:#0f766e; } .anatomy-legend li.pt { color:#b45309; }
@@ -645,17 +650,18 @@
 
           <div class="anatomy" id="addrAnatomy">
             <div class="anatomy-title">How an email address is built</div>
-            <div class="anatomy-ex" aria-label="Example: jane at joesplumbing dot com"><span class="pn">jane</span><span class="pa">@</span><span class="pd">joesplumbing</span><span class="pt">.com</span></div>
+            <div class="anatomy-ex" aria-label="Example: jane at joesplumbing dot com. The domain name plus the top-level domain make your web address."><span class="seg pn">jane</span><span class="pa">@</span><span class="wa"><span class="seg pd">joesplumbing</span><span class="seg pt">.com</span><span class="wa-lbl">your web address (domain)</span></span></div>
             <ul class="anatomy-legend">
-              <li class="pn"><i class="sw"></i><div style="color:#334155;"><b>Your name</b> — the part before the @. You choose it (jane, info, hello).</div></li>
+              <li class="pn"><i class="sw"></i><div style="color:#334155;"><b>Mailbox name</b> — the part before the @. It can be anything you like: a first name (jane) or a role (orders, info, hello). It doesn’t have to match your own name.</div></li>
               <li class="pa"><i class="sw"></i><div style="color:#334155;"><b>@</b> — means “at”. Always in the middle.</div></li>
-              <li class="pd"><i class="sw"></i><div style="color:#334155;"><b>Domain name</b> — your business’s web name (joesplumbing). This is the web address you gave us above.</div></li>
+              <li class="pd"><i class="sw"></i><div style="color:#334155;"><b>Domain name</b> — the main part of your web address (joesplumbing).</div></li>
               <li class="pt"><i class="sw"></i><div style="color:#334155;"><b>Top-level domain</b> — the ending (.com, .net, .co).</div></li>
             </ul>
+            <div class="anatomy-note"><b>Domain name + top-level domain = your web address (domain)</b>, like <b>joesplumbing.com</b>. That’s what step 2 asks for.</div>
           </div>
 
           <div class="field">
-            <label for="username">What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, info, hello</span></label>
+            <label for="username">What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, orders, info — doesn’t have to match your name</span></label>
             <div class="addr-row">
               <input type="text" id="username" name="email_username" placeholder="jane" required autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" oninput="userInput()" onblur="userBlur()">
               <span class="addr-at" aria-hidden="true">@</span>
@@ -667,6 +673,12 @@
           <div class="field">
             <label>Your new email will look like:</label>
             <div class="email-preview empty fit" id="emailPreview">Fill in the fields above to see your new address</div>
+          </div>
+
+          <div class="field">
+            <label for="displayName">Display name <span class="hint">optional — the name people see next to your address in their inbox, e.g. “Philos at EmailDone4U”</span></label>
+            <input type="text" id="displayName" name="display_name" placeholder="Jane at Joe’s Plumbing" maxlength="60" autocomplete="off" oninput="updatePreview()">
+            <div id="displayPreview"></div>
           </div>
 
           <div class="field">
@@ -944,6 +956,15 @@
     if (extras.length && !cap.querySelector('.preview-cap-top')) { var c = document.createElement('div'); c.className = 'preview-cap preview-cap-top'; c.textContent = 'These all arrive in your one main inbox:'; cap.insertBefore(c, cap.firstChild); }
     var sp = document.getElementById('sepPreview');
     if (sp.children.length && !sp.querySelector('.preview-cap-top')) { var c2 = document.createElement('div'); c2.className = 'preview-cap preview-cap-top'; c2.textContent = 'Each separate login will look like:'; sp.insertBefore(c2, sp.firstChild); }
+    // display name preview, the way an inbox shows it
+    var dnv = document.getElementById('displayName').value.trim().slice(0, 60);
+    var dpb = document.getElementById('displayPreview'); dpb.textContent = '';
+    if (dnv) {
+      var drow = document.createElement('div'); drow.className = 'email-preview mini fit';
+      drow.appendChild(mk('lbl', 'In an inbox:')); drow.appendChild(mk('dn', dnv)); drow.appendChild(mk('pa', ' <'));
+      var dinner = document.createElement('span'); paint(dinner, user || '___', dom); drow.appendChild(dinner); drow.appendChild(mk('pa', '>'));
+      dpb.appendChild(drow);
+    }
     fitAll();
   }
 
@@ -973,7 +994,7 @@
       reg.style.display = 'block';
       document.getElementById('settingsLoginSection').style.display = 'block';
       hosting.style.display = 'block';
-      label.innerHTML = 'What\'s your domain? <span class="req">*</span> <span class="hint">e.g. joesplumbing.com</span>';
+      label.innerHTML = 'What\'s your web address (domain)? <span class="req">*</span> <span class="hint">e.g. joesplumbing.com</span>';
     } else if (val === 'unsure') {
       field.style.display = 'block';
       reg.style.display = 'block';
@@ -995,7 +1016,7 @@
             4. You can submit this form now. We\'ll email you the next steps, and we start as soon as the domain is yours.
           </div>
         </details>`;
-      label.innerHTML = 'What domain do you plan to get? <span class="req">*</span> <span class="hint">e.g. joesplumbing.com</span>';
+      label.innerHTML = 'What web address (domain) do you plan to get? <span class="req">*</span> <span class="hint">e.g. joesplumbing.com</span>';
       hint.innerHTML = 'You don\'t need to have bought it yet. Picking a name is up to you — we don\'t offer naming help. You can check availability at <a href="https://www.namecheap.com" target="_blank" rel="noopener" style="color:#3b82f6;">namecheap.com</a>. If your first choice is taken, try a short variation (getjoesplumbing.com) or another ending (.co, .net).';
     }
     updatePreview();
@@ -1013,6 +1034,8 @@
         var names = parseNames(document.getElementById('sepLogins').value);
         if (names.length) add.push('Separate logins wanted: ' + names.join(', '));
       }
+      var dnote = document.getElementById('displayName').value.trim();
+      if (dnote) add.push('Display name wanted: ' + dnote);
       if (add.length) {
         var n = document.getElementById('notes');
         n.value = (n.value.trim() ? n.value.trim() + '\n\n' : '') + '[From form] ' + add.join(' | ');
@@ -1051,7 +1074,7 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.28</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.29</div>
 
 <script>
 /* Live estimate: assumes about 2 hours from now (1 hr for our reply + 1 hr for you to approve access), then applies the business-day rule in Eastern Time. */

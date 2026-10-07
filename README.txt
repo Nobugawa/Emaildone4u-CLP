@@ -1,9 +1,19 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.28
+Built: September 2026 — Package v1.29
 Domain: emaildone4u.com
 
-WHAT CHANGED THIS PASS (v1.28)  -- intake form only (plus version labels V1.28)
+WHAT CHANGED THIS PASS (v1.29)  -- intake form only (plus version labels V1.29)
+ 1. Email diagram: a bracket under the last two pieces says "your web address (domain)", and a note
+    explains domain name + top-level domain = the web address step 2 asks for. (Before, the legend
+    said the middle piece alone was the web address.) Step 2 labels now say "web address (domain)".
+ 2. "Your name" is now "Mailbox name" and says it can be anything (jane, orders, info) and does not
+    have to match the person's own name. The hint on the box says the same.
+ 3. New optional "Display name" field (what people see next to the address in their inbox) with a
+    preview line like:  Philos at EmailDone4U <orders@emaildone4u.com>. The answer is added to the
+    Notes field on submit as "Display name wanted: ...", like the other v1.28 answers.
+
+PREVIOUS PASS (v1.28)
 Made the form easier for non-technical people (two real orders came in with a wrong domain box):
  1. New "How an email address is built" diagram at the top of step 3 (your name @ domain name
     top-level domain), colour-keyed. The "will look like" line uses the same colours.
