@@ -1,9 +1,17 @@
 EmailDone4U — Netlify Deployment Package
 =========================================
-Built: September 2026 — Package v1.29
+Built: September 2026 — Package v1.30
 Domain: emaildone4u.com
 
-WHAT CHANGED THIS PASS (v1.29)  -- intake form only (plus version labels V1.29)
+WHAT CHANGED THIS PASS (v1.30)  -- intake form only (plus version labels V1.30)
+ 1. The "how an email address is built" diagram now sits above step 2 (it was in step 3), so people
+    see it before they are asked for their web address. The hint under the domain box links up to it.
+ 2. Removed the v1.28 question "Where do you log in to change your domain's settings?" -- too
+    technical for our customers (the portal's own DNS check finds this out). The registrar question
+    and the "where is your website hosted?" question stay; hosting says to pick "Not sure" if unsure.
+ 3. Aliases and separate-login fields now say to separate each name with a comma.
+
+PREVIOUS PASS (v1.29)
  1. Email diagram: a bracket under the last two pieces says "your web address (domain)", and a note
     explains domain name + top-level domain = the web address step 2 asks for. (Before, the legend
     said the middle piece alone was the web address.) Step 2 labels now say "web address (domain)".

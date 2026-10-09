@@ -562,6 +562,18 @@
 
         <div class="divider"></div>
 
+        <div class="anatomy" id="addrAnatomy">
+            <div class="anatomy-title">Quick guide: how an email address is built</div>
+            <div class="anatomy-ex" aria-label="Example: jane at joesplumbing dot com. The domain name plus the top-level domain make your web address."><span class="seg pn">jane</span><span class="pa">@</span><span class="wa"><span class="seg pd">joesplumbing</span><span class="seg pt">.com</span><span class="wa-lbl">your web address (domain)</span></span></div>
+            <ul class="anatomy-legend">
+              <li class="pn"><i class="sw"></i><div style="color:#334155;"><b>Mailbox name</b> — the part before the @. It can be anything you like: a first name (jane) or a role (orders, info, hello). It doesn’t have to match your own name.</div></li>
+              <li class="pa"><i class="sw"></i><div style="color:#334155;"><b>@</b> — means “at”. Always in the middle.</div></li>
+              <li class="pd"><i class="sw"></i><div style="color:#334155;"><b>Domain name</b> — the main part of your web address (joesplumbing).</div></li>
+              <li class="pt"><i class="sw"></i><div style="color:#334155;"><b>Top-level domain</b> — the ending (.com, .net, .co).</div></li>
+            </ul>
+            <div class="anatomy-note"><b>Domain name + top-level domain = your web address (domain)</b>, like <b>joesplumbing.com</b>. That’s what step 2 asks for.</div>
+          </div>
+
         <!-- Section 2: Your web address (domain) -->
         <div class="section">
           <div class="section-label">
@@ -605,24 +617,9 @@
           </div>
 
 
-          <div id="settingsLoginSection" style="display:none;">
-            <div class="field">
-              <label>Where do you log in to change your domain’s settings? <span class="hint">optional — skip this if it’s the same place you bought it</span></label>
-              <div class="registrar-grid">
-                <div class="registrar-option"><input type="radio" name="settings_login" id="s1" value="Website builder or host"><label class="registrar-pill" for="s1">My website builder or host</label></div>
-                <div class="registrar-option"><input type="radio" name="settings_login" id="s2" value="Cloudflare"><label class="registrar-pill" for="s2">Cloudflare</label></div>
-                <div class="registrar-option"><input type="radio" name="settings_login" id="s3" value="GoDaddy"><label class="registrar-pill" for="s3">GoDaddy</label></div>
-                <div class="registrar-option"><input type="radio" name="settings_login" id="s4" value="Namecheap"><label class="registrar-pill" for="s4">Namecheap</label></div>
-                <div class="registrar-option"><input type="radio" name="settings_login" id="s5" value="Other"><label class="registrar-pill" for="s5">Other</label></div>
-                <div class="registrar-option"><input type="radio" name="settings_login" id="s6" value="Not sure"><label class="registrar-pill" for="s6">Not sure</label></div>
-              </div>
-              <p style="font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.5;">Sometimes a domain is bought in one place but managed in another. Don’t worry if you’re not sure — we check this for you.</p>
-            </div>
-          </div>
-
           <div id="hostingSection" style="display:none;">
             <div class="field">
-              <label>Do you have a website? If so, where's it hosted? <span class="hint">helps us find the right place to set up your email — not always the same as where you bought your domain</span></label>
+              <label>Do you have a website? If so, where's it hosted? <span class="hint">helps us find the right place to set up your email — pick “Not sure” if you don’t know</span></label>
               <select id="hostingPlatform" name="hosting_platform">
                 <option value="">— select one —</option>
                 <option value="no-website">No website</option>
@@ -648,18 +645,6 @@
             <h3>Your New Email Address</h3>
           </div>
 
-          <div class="anatomy" id="addrAnatomy">
-            <div class="anatomy-title">How an email address is built</div>
-            <div class="anatomy-ex" aria-label="Example: jane at joesplumbing dot com. The domain name plus the top-level domain make your web address."><span class="seg pn">jane</span><span class="pa">@</span><span class="wa"><span class="seg pd">joesplumbing</span><span class="seg pt">.com</span><span class="wa-lbl">your web address (domain)</span></span></div>
-            <ul class="anatomy-legend">
-              <li class="pn"><i class="sw"></i><div style="color:#334155;"><b>Mailbox name</b> — the part before the @. It can be anything you like: a first name (jane) or a role (orders, info, hello). It doesn’t have to match your own name.</div></li>
-              <li class="pa"><i class="sw"></i><div style="color:#334155;"><b>@</b> — means “at”. Always in the middle.</div></li>
-              <li class="pd"><i class="sw"></i><div style="color:#334155;"><b>Domain name</b> — the main part of your web address (joesplumbing).</div></li>
-              <li class="pt"><i class="sw"></i><div style="color:#334155;"><b>Top-level domain</b> — the ending (.com, .net, .co).</div></li>
-            </ul>
-            <div class="anatomy-note"><b>Domain name + top-level domain = your web address (domain)</b>, like <b>joesplumbing.com</b>. That’s what step 2 asks for.</div>
-          </div>
-
           <div class="field">
             <label for="username">What should come before the @ ? <span class="req">*</span> <span class="hint">e.g. jane, orders, info — doesn’t have to match your name</span></label>
             <div class="addr-row">
@@ -682,7 +667,7 @@
           </div>
 
           <div class="field">
-            <label for="extraEmails">Additional addresses that forward to this same inbox? <span class="hint">optional — e.g. info@, billing@ — not separate logins</span></label>
+            <label for="extraEmails">Additional addresses that forward to this same inbox? <span class="hint">optional — separate each with a comma, e.g. info, billing, support. These are not separate logins.</span></label>
             <input type="text" id="extraEmails" name="extra_emails" placeholder="info, billing, support" autocapitalize="off" autocomplete="off" oninput="updatePreview()">
             <div id="extraPreview"></div>
           </div>
@@ -694,7 +679,7 @@
               <div class="registrar-option"><input type="radio" name="needs_separate_mailbox" id="sm-yes" value="yes" onchange="updatePreview()"><label class="registrar-pill" for="sm-yes">Yes</label></div>
             </div>
             <div id="sepBox" style="display:none;margin-top:14px;">
-              <label for="sepLogins" style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:7px;">Who needs their own login? <span class="hint" style="font-weight:400;color:var(--gray);font-size:12px;">first names are fine — e.g. sam, maria</span></label>
+              <label for="sepLogins" style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:7px;">Who needs their own login? <span class="hint" style="font-weight:400;color:var(--gray);font-size:12px;">separate each with a comma — e.g. sam, maria</span></label>
               <input type="text" id="sepLogins" name="separate_logins" placeholder="sam, maria" autocapitalize="off" autocomplete="off" oninput="updatePreview()" style="width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--off);">
               <div id="sepPreview"></div>
               <p class="preview-cap">Each one gets its own private mailbox and password. Extra cost — we’ll confirm pricing before anything is added.</p>
@@ -981,18 +966,16 @@
     // reset
     reg.style.display = 'none';
     hosting.style.display = 'none';
-    document.getElementById('settingsLoginSection').style.display = 'none';
     field.style.display = 'none';
     info.className = 'info-box';
     info.innerHTML = '';
-    hint.innerHTML = 'Just the web address, like <strong>joesplumbing.com</strong> \u2014 not an email address. <a href="#addrAnatomy" style="color:#3b82f6;">See how an email address is built \u2193</a>';
+    hint.innerHTML = 'Just the web address, like <strong>joesplumbing.com</strong> \u2014 not an email address. <a href="#addrAnatomy" style="color:#3b82f6;">See how an email address is built \u2191</a>';
     showMsg('domainErr', ''); showMsg('domainNote', '');
     input.required = true;
 
     if (val === 'yes') {
       field.style.display = 'block';
       reg.style.display = 'block';
-      document.getElementById('settingsLoginSection').style.display = 'block';
       hosting.style.display = 'block';
       label.innerHTML = 'What\'s your web address (domain)? <span class="req">*</span> <span class="hint">e.g. joesplumbing.com</span>';
     } else if (val === 'unsure') {
@@ -1028,8 +1011,6 @@
     // Extra answers travel to the portal inside the notes field (the portal reads these fields today).
     (function foldExtras() {
       var add = [];
-      var sl = document.querySelector('input[name="settings_login"]:checked');
-      if (sl && document.getElementById('domainStatus').value === 'yes') add.push('Where client logs in to change domain settings (DNS): ' + sl.value);
       if (document.getElementById('sm-yes').checked) {
         var names = parseNames(document.getElementById('sepLogins').value);
         if (names.length) add.push('Separate logins wanted: ' + names.join(', '));
@@ -1074,7 +1055,7 @@
   });
 </script>
 
-<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.29</div>
+<div style="text-align:right;padding:4px 5% 8px;font-size:11px;color:rgba(255,255,255,0.25);">V1.30</div>
 
 <script>
 /* Live estimate: assumes about 2 hours from now (1 hr for our reply + 1 hr for you to approve access), then applies the business-day rule in Eastern Time. */
